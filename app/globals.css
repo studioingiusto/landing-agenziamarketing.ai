@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-inter: "Inter", system-ui, sans-serif;
+  --font-space-grotesk: "Space Grotesk", system-ui, sans-serif;
+}
+
+body {
+  @apply bg-background text-foreground font-sans;
+  background-image: radial-gradient(circle at 50% 30%, #5d3f7a 0%, #020103 70%);
+}
+
+.tooltip-arrow::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  background-color: #4d3763;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.chart-line {
+  fill: none;
+  stroke: #9c55ff;
+  stroke-width: 2;
+}
+
+.chart-area {
+  fill: url(#chart-gradient);
+}
+
+.browser-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.browser-dot.red {
+  background-color: #ff5f57;
+}
+
+.browser-dot.yellow {
+  background-color: #febc2e;
+}
+
+.browser-dot.green {
+  background-color: #28c840;
+}
+
+.dashboard-card {
+  background-color: rgba(42, 25, 60, 0.85);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dashboard-container {
+  box-shadow: 0 0 80px 0 rgba(156, 85, 255, 0.4);
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 500;
+}
+
+.gradient-text {
+  background: linear-gradient(to top, #b372cf 0%, white 50%, white 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+}
+
