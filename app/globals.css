@@ -63,11 +63,11 @@ body {
   box-shadow: 0 0 80px 0 rgba(156, 85, 255, 0.4);
 }
 
-h1,
+/* h1,
 h2,
 h3 {
   font-weight: 500;
-}
+} */
 
 .gradient-text {
   background: linear-gradient(to top, #b372cf 0%, white 50%, white 100%);
@@ -75,5 +75,89 @@ h3 {
   background-clip: text;
   color: transparent;
   display: inline-block;
+}
+
+/* User Journey Roadmap Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.journey-step {
+  opacity: 0;
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.journey-step:nth-child(1) { animation-delay: 0.1s; }
+.journey-step:nth-child(2) { animation-delay: 0.2s; }
+.journey-step:nth-child(3) { animation-delay: 0.3s; }
+.journey-step:nth-child(4) { animation-delay: 0.4s; }
+.journey-step:nth-child(5) { animation-delay: 0.5s; }
+.journey-step:nth-child(6) { animation-delay: 0.6s; }
+
+/* Journey Numbers Styling */
+.journey-step-number {
+  font-size: 120px;
+}
+
+@media (min-width: 768px) {
+  .journey-step-number {
+    font-size: 200px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .journey-step-number {
+    font-size: 260px;
+  }
+}
+
+.journey-step-number.left-number {
+  x: 120;
+  text-anchor: end;
+}
+
+.journey-step-number.right-number {
+  x: -20;
+  text-anchor: start;
+}
+
+@media (min-width: 768px) {
+  .journey-step-number.even-step {
+    x: -30;
+    text-anchor: start;
+  }
+  
+  .journey-step-number.odd-step {
+    x: 130;
+    text-anchor: end;
+  }
+}
+
+.journey-step-number.active-step {
+  color: #9c55ff;
+}
+
+.journey-step-number.inactive-step {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* Text stroke classes for journey step numbers */
+.text-stroke-active {
+  color: transparent;
+  -webkit-text-stroke: 3px #9c55ff;
+  text-stroke: 3px #9c55ff;
+}
+
+.text-stroke-inactive {
+  color: transparent;
+  -webkit-text-stroke: 3px rgba(255, 255, 255, 0.3);
+  text-stroke: 3px rgba(255, 255, 255, 0.3);
 }
 

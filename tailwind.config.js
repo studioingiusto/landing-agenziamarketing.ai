@@ -98,7 +98,7 @@ module.exports = {
         card: "0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.1)",
       },
       backgroundImage: {
-        "main-gradient": "radial-gradient(circle at 50% 30%, #5d3f7a 0%, #020103 70%)",
+        "main-gradient": "radial-gradient(circle at 0% 40%, #5d3f7a 0%, #020103 70%)",
         "chart-gradient": "linear-gradient(180deg, rgba(156, 85, 255, 0.25) 0%, rgba(156, 85, 255, 0) 100%)",
       },
       fontFamily: {

@@ -7,36 +7,46 @@ import {
   MoreHorizontal,
   Search,
   Settings,
-} from "lucide-react"
-import Link from "next/link"
+} from "lucide-react";
+import Link from "next/link";
+import { UserJourney } from "@/components/UserJourney";
 
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col bg-main-gradient">
       {/* Navigation */}
       <header className="border-b border-[#ffffff15] py-4">
-        <div className="container mx-auto flex items-center justify-between px-4">
+        <div className="container mx-auto flex items-center justify-center px-4">
           <div className="flex items-center gap-12">
-            <Link href="/" className="flex items-center">
-              <div className="w-10 h-10 rounded-lg bg-[#9c55ff] flex items-center justify-center shadow-[0_0_15px_rgba(156,85,255,0.5)]">
-                <div className="w-5 h-5 rounded-full bg-white"></div>
-              </div>
-            </Link>
-
             <nav className="hidden md:flex items-center gap-8">
-              <Link href="#" className="text-white/80 hover:text-white flex items-center gap-1 text-[15px]">
+              <Link
+                href="#"
+                className="text-white/80 hover:text-white flex items-center gap-1 text-[15px]"
+              >
                 Features <ChevronDown className="h-4 w-4" />
               </Link>
-              <Link href="#" className="text-white/80 hover:text-white text-[15px]">
+              <Link
+                href="#"
+                className="text-white/80 hover:text-white text-[15px]"
+              >
                 Developers
               </Link>
-              <Link href="#" className="text-white/80 hover:text-white flex items-center gap-1 text-[15px]">
+              <Link
+                href="#"
+                className="text-white/80 hover:text-white flex items-center gap-1 text-[15px]"
+              >
                 Company <ChevronDown className="h-4 w-4" />
               </Link>
-              <Link href="#" className="text-white/80 hover:text-white text-[15px]">
+              <Link
+                href="#"
+                className="text-white/80 hover:text-white text-[15px]"
+              >
                 Blog
               </Link>
-              <Link href="#" className="text-white/80 hover:text-white text-[15px]">
+              <Link
+                href="#"
+                className="text-white/80 hover:text-white text-[15px]"
+              >
                 Changelog
               </Link>
             </nav>
@@ -54,28 +64,34 @@ export default function Home() {
       {/* Hero Section */}
       <main className="flex-1">
         <div className="container mx-auto px-4 py-16 flex flex-col items-center text-center">
-          <div className="bg-[#2a193c]/80 backdrop-blur-sm rounded-full px-4 py-1 flex items-center gap-2 mb-8 shadow-[0_4px_20px_rgba(0,0,0,0.2)]">
-            <span className="bg-[#9c55ff] text-[10px] font-bold px-2 py-0.5 rounded-full">NEW</span>
-            <span className="text-[#a865ff] text-sm">Latest integration just arrived</span>
-          </div>
+          {/* <div className="bg-[#2a193c]/80 backdrop-blur-sm rounded-full px-4 py-1 flex items-center gap-2 mb-8 shadow-[0_4px_20px_rgba(0,0,0,0.2)]">
+            <span className="bg-[#9c55ff] text-[10px] font-bold px-2 py-0.5 rounded-full">
+              NEW
+            </span>
+            <span className="text-[#a865ff] text-sm">
+              Latest integration just arrived
+            </span>
+          </div> */}
 
-          <h1 className="text-5xl md:text-7xl mb-6 max-w-4xl font-title">
+          <h1 className="text-5xl md:text-7xl mb-6 max-w-4xl font-medium !leading-[1.1] font-title">
             <span className="gradient-text">
-              Boost your
+              SEO Senza Limiti:
               <br />
-              rankings with AI.
+              Automatizzata, Potenziata, Vincente.
             </span>
           </h1>
 
           <p className="text-white/90 max-w-2xl mb-10 text-xl font-normal">
-            Elevate your site's visibility effortlessly with AI, where smart technology meets user-friendly SEO tools.
+            L’AI di agenziamarketing.ai analizza, scrive e ottimizza i tuoi
+            contenuti in pochi secondi. Dì addio a giorni di ricerca manuale e
+            articoli scritti a mano.
           </p>
 
           <Link
             href="#"
             className="bg-white text-[#2a193c] px-6 py-3 rounded-lg font-medium hover:bg-white/90 transition-colors font-title shadow-[0_4px_20px_rgba(255,255,255,0.3)]"
           >
-            Start for free
+            Unisciti alla Waiting List!
           </Link>
 
           {/* Dashboard Preview */}
@@ -96,7 +112,9 @@ export default function Home() {
                 <div className="w-64 border-r border-[#ffffff10] p-4 bg-[#1a0f26]/70 backdrop-blur-sm">
                   <div className="dashboard-card rounded-md p-3 flex items-center gap-2 mb-4">
                     <Eye className="w-4 h-4 text-white/70" />
-                    <span className="text-white font-medium text-sm">Site Overview</span>
+                    <span className="text-white font-medium text-sm">
+                      Site Overview
+                    </span>
                   </div>
 
                   <div className="space-y-4">
@@ -206,7 +224,9 @@ export default function Home() {
                 <div className="flex-1 p-4 bg-[#150a1f]/80 backdrop-blur-sm">
                   <div className="flex justify-between items-center mb-4">
                     <div>
-                      <h2 className="text-white/80 text-sm font-title">Site Overview</h2>
+                      <h2 className="text-white/80 text-sm font-title">
+                        Site Overview
+                      </h2>
                       <div className="flex items-center gap-1 text-white/60 text-xs">
                         <span>www.website.com</span>
                         <ChevronRight className="w-3 h-3" />
@@ -244,10 +264,16 @@ export default function Home() {
                     <div className="dashboard-card rounded-md p-4 relative">
                       <div className="flex justify-between items-start mb-2">
                         <div>
-                          <h3 className="text-white/70 text-sm font-title">Visibility</h3>
+                          <h3 className="text-white/70 text-sm font-title">
+                            Visibility
+                          </h3>
                           <div className="flex items-end gap-2">
-                            <span className="text-white text-3xl font-semibold font-title">10.15%</span>
-                            <span className="text-[#4ade80] text-sm mb-1">+5.6%</span>
+                            <span className="text-white text-3xl font-semibold font-title">
+                              10.15%
+                            </span>
+                            <span className="text-[#4ade80] text-sm mb-1">
+                              +5.6%
+                            </span>
                           </div>
                         </div>
                         <button>
@@ -258,11 +284,30 @@ export default function Home() {
                       <div className="h-32 mt-4 relative">
                         {/* Chart Visualization */}
                         <div className="absolute inset-0">
-                          <svg width="100%" height="100%" viewBox="0 0 300 100" preserveAspectRatio="none">
+                          <svg
+                            width="100%"
+                            height="100%"
+                            viewBox="0 0 300 100"
+                            preserveAspectRatio="none"
+                          >
                             <defs>
-                              <linearGradient id="chart-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                                <stop offset="0%" stopColor="#9c55ff" stopOpacity="0.25" />
-                                <stop offset="100%" stopColor="#9c55ff" stopOpacity="0" />
+                              <linearGradient
+                                id="chart-gradient"
+                                x1="0%"
+                                y1="0%"
+                                x2="0%"
+                                y2="100%"
+                              >
+                                <stop
+                                  offset="0%"
+                                  stopColor="#9c55ff"
+                                  stopOpacity="0.25"
+                                />
+                                <stop
+                                  offset="100%"
+                                  stopColor="#9c55ff"
+                                  stopOpacity="0"
+                                />
                               </linearGradient>
                             </defs>
                             <path
@@ -281,7 +326,9 @@ export default function Home() {
                               <div className="text-white/70">Jun 18</div>
                               <div className="flex items-center gap-2">
                                 <span>Visibility</span>
-                                <span className="font-semibold font-title">9.8%</span>
+                                <span className="font-semibold font-title">
+                                  9.8%
+                                </span>
                               </div>
                             </div>
                             <div className="w-2 h-2 bg-[#9c55ff] rounded-full absolute -bottom-1 left-1/2 transform -translate-x-1/2 shadow-[0_0_5px_rgba(156,85,255,0.5)]"></div>
@@ -294,10 +341,16 @@ export default function Home() {
                     <div className="dashboard-card rounded-md p-4">
                       <div className="flex justify-between items-start mb-2">
                         <div>
-                          <h3 className="text-white/70 text-sm font-title">Organic Keywords</h3>
+                          <h3 className="text-white/70 text-sm font-title">
+                            Organic Keywords
+                          </h3>
                           <div className="flex items-end gap-2">
-                            <span className="text-white text-3xl font-semibold font-title">35.6K</span>
-                            <span className="text-[#f87171] text-sm mb-1">-2.5%</span>
+                            <span className="text-white text-3xl font-semibold font-title">
+                              35.6K
+                            </span>
+                            <span className="text-[#f87171] text-sm mb-1">
+                              -2.5%
+                            </span>
                           </div>
                         </div>
                         <button>
@@ -306,7 +359,9 @@ export default function Home() {
                       </div>
 
                       <div className="mt-4">
-                        <h4 className="text-white/70 text-sm mb-2 font-title">Top Keywords</h4>
+                        <h4 className="text-white/70 text-sm mb-2 font-title">
+                          Top Keywords
+                        </h4>
                         <div className="space-y-2">
                           {[
                             "online payment processing",
@@ -317,10 +372,15 @@ export default function Home() {
                             "B2B payment processing",
                             "safe online payments",
                           ].map((keyword, index) => (
-                            <div key={index} className="flex items-center justify-between">
+                            <div
+                              key={index}
+                              className="flex items-center justify-between"
+                            >
                               <div className="flex items-center gap-2">
                                 <div className="w-2 h-2 rounded-full bg-[#9c55ff] shadow-[0_0_5px_rgba(156,85,255,0.5)]"></div>
-                                <span className="text-white/80 text-sm">{keyword}</span>
+                                <span className="text-white/80 text-sm">
+                                  {keyword}
+                                </span>
                               </div>
                               <button>
                                 <MoreHorizontal className="w-4 h-4 text-white/60" />
@@ -336,10 +396,16 @@ export default function Home() {
                   <div className="dashboard-card rounded-md p-4">
                     <div className="flex justify-between items-start mb-2">
                       <div>
-                        <h3 className="text-white/70 text-sm font-title">Traffic</h3>
+                        <h3 className="text-white/70 text-sm font-title">
+                          Traffic
+                        </h3>
                         <div className="flex items-end gap-2">
-                          <span className="text-white text-3xl font-semibold font-title">59.8K</span>
-                          <span className="text-[#4ade80] text-sm mb-1">+10.7%</span>
+                          <span className="text-white text-3xl font-semibold font-title">
+                            59.8K
+                          </span>
+                          <span className="text-[#4ade80] text-sm mb-1">
+                            +10.7%
+                          </span>
                         </div>
                       </div>
                       <button>
@@ -349,7 +415,12 @@ export default function Home() {
 
                     <div className="h-24 mt-4">
                       {/* Chart Visualization */}
-                      <svg width="100%" height="100%" viewBox="0 0 300 100" preserveAspectRatio="none">
+                      <svg
+                        width="100%"
+                        height="100%"
+                        viewBox="0 0 300 100"
+                        preserveAspectRatio="none"
+                      >
                         <path
                           d="M0,80 C30,75 60,85 90,70 C120,55 150,65 180,60 C210,55 240,45 270,20 C280,15 290,10 300,5"
                           fill="none"
@@ -363,9 +434,35 @@ export default function Home() {
               </div>
             </div>
           </div>
+
+          {/* User Journey Section */}
+          <UserJourney />
+
+          {/* Waitlist Section */}
+          <div className="w-full max-w-4xl mt-24 mb-16 py-16 px-6 rounded-2xl border border-[#ffffff15] bg-[#150a1f]/60 backdrop-blur-md shadow-[0_0_50px_rgba(156,85,255,0.2)]">
+            <h2 className="text-4xl md:text-6xl font-title mb-10">
+              Scopri il Futuro della SEO:
+              <br />
+              Entra in Anteprima!
+            </h2>
+
+            <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+              <input
+                type="email"
+                placeholder="Your email"
+                className="flex-1 bg-[#2a193c]/70 border border-[#ffffff20] rounded-lg px-4 py-3 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-[#9c55ff]/50"
+              />
+              <button className="bg-white text-[#2a193c] px-6 py-3 rounded-lg font-medium hover:bg-white/90 transition-colors font-title">
+                Voglio provare l’AI SEO
+              </button>
+            </div>
+
+            <p className="text-white/60 mt-6 text-sm">
+              Niente spam, solo aggiornamenti esclusivi.
+            </p>
+          </div>
         </div>
       </main>
     </div>
-  )
+  );
 }
-
