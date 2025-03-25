@@ -18,7 +18,7 @@ import React from "react";
 const HeroSection = () => {
   return (
     <>
-      <h1 className="text-5xl md:text-7xl mb-6 max-w-4xl font-medium !leading-[1.1] font-title">
+      <h1 className="text-4xl md:text-7xl mb-6 max-w-4xl font-medium !leading-[1.1] font-title">
         <span className="gradient-text">
           SEO senza limiti.
           <br />
@@ -28,7 +28,7 @@ const HeroSection = () => {
         </span>
       </h1>
 
-      <p className="text-white/90 max-w-3xl mb-10 text-xl font-normal">
+      <p className="text-white/90 max-w-3xl mb-10 text-lg md:text-xl font-normal">
         agenziamarketing.ai ti restituisce in pochi minuti un'analisi SEO
         completa, keyword vincenti e contenuti già pronti da pubblicare.
       </p>

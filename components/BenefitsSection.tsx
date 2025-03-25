@@ -21,7 +21,7 @@ export function BenefitsSection() {
           </span>
         </div> */}
 
-        <h2 className="text-4xl md:text-5xl font-medium font-title mb-6">
+        <h2 className="text-3xl md:text-5xl font-medium font-title mb-6">
           <span className="gradient-text">
             Perché scegliere
             <br />
