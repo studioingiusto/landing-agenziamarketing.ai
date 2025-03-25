@@ -2,6 +2,7 @@ import type React from "react"
 import "./globals.css"
 import type { Metadata } from "next"
 import { Inter, Space_Grotesk } from "next/font/google"
+import { Toaster } from "sonner"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -39,7 +40,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`}>
-      <body className="font-sans">{children}</body>
+      <body className="font-sans">
+        {children}
+        <Toaster 
+          position="top-center"
+          toastOptions={{
+            style: {
+              background: '#2a193c',
+              color: '#fff',
+              border: '1px solid rgba(255,255,255,0.1)',
+            },
+            className: 'font-sans',
+          }}
+        />
+      </body>
     </html>
   )
 }
