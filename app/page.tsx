@@ -1,65 +1,38 @@
 import {
+  ArrowRight,
+  ArrowUpRight,
+  BarChart3,
+  Bell,
+  CheckCircle2,
   ChevronDown,
   ChevronRight,
   CircleEllipsis,
   Eye,
+  FileText,
+  Globe,
+  Layers,
   LineChart,
+  Menu,
   MoreHorizontal,
   Search,
   Settings,
+  Home as HomeIcon,
+  Sparkles,
+  Target,
+  User,
+  Zap,
 } from "lucide-react";
 import Link from "next/link";
 import { UserJourney } from "@/components/UserJourney";
+import { BenefitsSection } from "@/components/BenefitsSection";
+import { ComparisonSection } from "@/components/ComparisonSection";
+import Navbar from "@/components/Navbar";
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col bg-main-gradient">
+    <div id="home" className="min-h-screen flex flex-col bg-main-gradient">
       {/* Navigation */}
-      <header className="border-b border-[#ffffff15] py-4">
-        <div className="container mx-auto flex items-center justify-center px-4">
-          <div className="flex items-center gap-12">
-            <nav className="hidden md:flex items-center gap-8">
-              <Link
-                href="#"
-                className="text-white/80 hover:text-white flex items-center gap-1 text-[15px]"
-              >
-                Features <ChevronDown className="h-4 w-4" />
-              </Link>
-              <Link
-                href="#"
-                className="text-white/80 hover:text-white text-[15px]"
-              >
-                Developers
-              </Link>
-              <Link
-                href="#"
-                className="text-white/80 hover:text-white flex items-center gap-1 text-[15px]"
-              >
-                Company <ChevronDown className="h-4 w-4" />
-              </Link>
-              <Link
-                href="#"
-                className="text-white/80 hover:text-white text-[15px]"
-              >
-                Blog
-              </Link>
-              <Link
-                href="#"
-                className="text-white/80 hover:text-white text-[15px]"
-              >
-                Changelog
-              </Link>
-            </nav>
-          </div>
-
-          <Link
-            href="#"
-            className="bg-[#9c55ff] text-white px-5 py-2 rounded-lg hover:bg-[#a865ff] transition-colors text-[15px] font-medium font-title shadow-[0_0_15px_rgba(156,85,255,0.3)]"
-          >
-            Join waitlist
-          </Link>
-        </div>
-      </header>
+      <Navbar />
 
       {/* Hero Section */}
       <main className="flex-1">
@@ -75,27 +48,28 @@ export default function Home() {
 
           <h1 className="text-5xl md:text-7xl mb-6 max-w-4xl font-medium !leading-[1.1] font-title">
             <span className="gradient-text">
-              SEO Senza Limiti:
+              SEO senza limiti.
               <br />
-              Automatizzata, Potenziata, Vincente.
+              Inserisci il tuo sito,
+              <br />
+              l’AI fa il resto.
             </span>
           </h1>
 
-          <p className="text-white/90 max-w-2xl mb-10 text-xl font-normal">
-            L’AI di agenziamarketing.ai analizza, scrive e ottimizza i tuoi
-            contenuti in pochi secondi. Dì addio a giorni di ricerca manuale e
-            articoli scritti a mano.
+          <p className="text-white/90 max-w-3xl mb-10 text-xl font-normal">
+            agenziamarketing.ai ti restituisce in pochi minuti un'analisi SEO
+            completa, keyword vincenti e contenuti già pronti da pubblicare.
           </p>
 
           <Link
             href="#"
-            className="bg-white text-[#2a193c] px-6 py-3 rounded-lg font-medium hover:bg-white/90 transition-colors font-title shadow-[0_4px_20px_rgba(255,255,255,0.3)]"
+            className="bg-white text-[#2a193c] mb-10 px-6 py-3 rounded-lg font-medium hover:bg-white/90 transition-colors font-title shadow-[0_4px_20px_rgba(255,255,255,0.3)]"
           >
-            Unisciti alla Waiting List!
+            Prova ora
           </Link>
 
-          {/* Dashboard Preview */}
-          <div className="mt-16 w-full max-w-5xl dashboard-container">
+          {/* Dashboard Preview - Desktop (hidden on small screens) */}
+          <div className="w-full max-w-5xl dashboard-container hidden md:block">
             <div className="bg-[#020103]/90 backdrop-blur-md rounded-lg border border-[#ffffff15] overflow-hidden">
               {/* Browser Controls */}
               <div className="flex items-center gap-1 p-2 border-b border-[#ffffff10] bg-[#0f0a16]">
@@ -111,324 +85,472 @@ export default function Home() {
                 {/* Sidebar */}
                 <div className="w-64 border-r border-[#ffffff10] p-4 bg-[#1a0f26]/70 backdrop-blur-sm">
                   <div className="dashboard-card rounded-md p-3 flex items-center gap-2 mb-4">
-                    <Eye className="w-4 h-4 text-white/70" />
-                    <span className="text-white font-medium text-sm">
-                      Site Overview
+                    <span className="text-white font-medium font-title text-sm">
+                      agenziamarketing.ai
                     </span>
                   </div>
 
                   <div className="space-y-4">
-                    <div className="flex items-center gap-2 p-2 text-white/70 hover:text-white">
-                      <LineChart className="w-4 h-4" />
-                      <span className="text-sm">Analytics</span>
+                    <div className="flex items-center gap-2 p-2 text-white bg-[#9c55ff]/20 rounded-md">
+                      <div className="w-5 h-5 rounded-full bg-[#9c55ff] flex items-center justify-center text-xs text-white font-medium">
+                        1
+                      </div>
+                      <span className="text-sm">Setup sito web</span>
                     </div>
                     <div className="flex items-center gap-2 p-2 text-white/70 hover:text-white">
-                      <svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="opacity-70"
-                      >
-                        <path
-                          d="M10 20L14 4M18 8L22 12L18 16M6 16L2 12L6 8"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                      <span className="text-sm">Smart Keyword Generator</span>
+                      <div className="w-5 h-5 rounded-full bg-[#ffffff20] flex items-center justify-center text-xs text-white/70 font-medium">
+                        2
+                      </div>
+                      <span className="text-sm">Ricerca Keywords</span>
                     </div>
                     <div className="flex items-center gap-2 p-2 text-white/70 hover:text-white">
-                      <svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="opacity-70"
-                      >
-                        <path
-                          d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8L12 2Z"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                      <span className="text-sm">Goals</span>
+                      <div className="w-5 h-5 rounded-full bg-[#ffffff20] flex items-center justify-center text-xs text-white/70 font-medium">
+                        3
+                      </div>
+                      <span className="text-sm">Strategia SEO contenuti</span>
                     </div>
                     <div className="flex items-center gap-2 p-2 text-white/70 hover:text-white">
-                      <svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="opacity-70"
-                      >
-                        <path
-                          d="M9 5H7C5.89543 5 5 5.89543 5 7V19C5 20.1046 5.89543 21 7 21H17C18.1046 21 19 20.1046 19 19V7C19 5.89543 18.1046 5 17 5H15M9 5C9 6.10457 9.89543 7 11 7H13C14.1046 7 15 6.10457 15 5M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                      <span className="text-sm">Content Evaluation</span>
+                      <div className="w-5 h-5 rounded-full bg-[#ffffff20] flex items-center justify-center text-xs text-white/70 font-medium">
+                        4
+                      </div>
+                      <span className="text-sm">Generazione contenuti</span>
                     </div>
                     <div className="flex items-center gap-2 p-2 text-white/70 hover:text-white">
-                      <svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="opacity-70"
-                      >
-                        <path
-                          d="M7 17L17 7M7 7H17V17"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                      <span className="text-sm">Backlink Audit</span>
-                    </div>
-                    <div className="flex items-center gap-2 p-2 text-white/70 hover:text-white">
-                      <svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="opacity-70"
-                      >
-                        <path
-                          d="M15 7H3M15 12H3M9 17H3M21 17L17 13M17 13L13 17M17 13V7"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                      <span className="text-sm">Link Optimization Wizard</span>
+                      <div className="w-5 h-5 rounded-full bg-[#ffffff20] flex items-center justify-center text-xs text-white/70 font-medium">
+                        5
+                      </div>
+                      <span className="text-sm">Pubblicazione e gestione</span>
                     </div>
                   </div>
                 </div>
 
-                {/* Main Content */}
+                {/* Main Content - Setup Wizard */}
                 <div className="flex-1 p-4 bg-[#150a1f]/80 backdrop-blur-sm">
-                  <div className="flex justify-between items-center mb-4">
-                    <div>
-                      <h2 className="text-white/80 text-sm font-title">
-                        Site Overview
-                      </h2>
-                      <div className="flex items-center gap-1 text-white/60 text-xs">
-                        <span>www.website.com</span>
-                        <ChevronRight className="w-3 h-3" />
+                  {/* Step Indicator */}
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center">
+                      <div className="text-white/90 text-lg font-title">
+                        Setup sito web
+                      </div>
+                      <div className="ml-2 bg-[#9c55ff] text-white text-xs px-2 py-0.5 rounded-full">
+                        Step 1 di 5
                       </div>
                     </div>
-
                     <div className="flex items-center gap-2">
-                      <div className="relative">
-                        <input
-                          type="text"
-                          placeholder="Search"
-                          className="bg-[#2a193c]/70 backdrop-blur-sm border border-[#ffffff20] rounded-md py-1.5 pl-8 pr-3 text-sm text-white/80 w-48"
-                        />
-                        <Search className="w-4 h-4 absolute left-2 top-1/2 transform -translate-y-1/2 text-white/60" />
-                      </div>
-                      <button className="bg-[#9c55ff] p-1.5 rounded-md shadow-[0_0_10px_rgba(156,85,255,0.3)]">
-                        <Settings className="w-4 h-4 text-white" />
+                      <button className="bg-[#2a193c] hover:bg-[#3a294c] text-white/80 px-3 py-1.5 rounded-md text-sm transition-colors">
+                        Salta
+                      </button>
+                      <button className="bg-[#9c55ff] hover:bg-[#a865ff] text-white px-3 py-1.5 rounded-md text-sm transition-colors shadow-[0_0_10px_rgba(156,85,255,0.3)] flex items-center gap-1">
+                        Prossimo
+                        <ChevronRight className="w-4 h-4" />
                       </button>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2 mb-4">
-                    <div className="dashboard-card rounded-md px-3 py-1.5 flex items-center gap-2 text-sm text-white/80">
-                      <span>Jun 24</span>
-                      <ChevronRight className="w-3 h-3" />
-                      <span>Today</span>
+                  {/* Multiple "Screenshots" in a Carousel-like Layout */}
+                  <div className="relative">
+                    {/* Screenshot 1: Website Setup */}
+                    <div className="dashboard-card rounded-md p-5 mb-4">
+                      <h3 className="text-white text-lg font-title mb-4 flex items-center">
+                        <Globe className="w-5 h-5 mr-2 text-[#9c55ff]" />
+                        Inserisci il tuo sito web
+                      </h3>
+
+                      <div className="mb-6">
+                        <p className="text-white/80 text-sm mb-4">
+                          Analizzeremo il tuo sito web per identificare le
+                          opportunità SEO e creare una strategia personalizzata.
+                        </p>
+
+                        <div className="flex gap-2">
+                          <div className="relative flex-1">
+                            <Globe className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-white/60" />
+                            <div className="flex-1 bg-[#2a193c]/70 border border-[#ffffff20] rounded-lg px-4 py-3 text-white/50 focus:outline-none focus:ring-2 focus:ring-[#9c55ff]/50">
+                              https://agenziamarketing.ai
+                            </div>
+                          </div>
+                          <button className="bg-[#9c55ff] px-4 py-2 rounded-md text-white font-medium shadow-[0_0_10px_rgba(156,85,255,0.3)] hover:bg-[#a865ff] transition-colors">
+                            Analizza
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div className="dashboard-card rounded-md p-3 flex flex-col items-center text-center">
+                          <div className="w-10 h-10 rounded-full bg-[#9c55ff]/20 flex items-center justify-center mb-2">
+                            <Sparkles className="w-5 h-5 text-[#9c55ff]" />
+                          </div>
+                          <h4 className="text-white text-sm font-medium mb-1">
+                            Analisi di mercato
+                          </h4>
+                          <p className="text-white/60 text-xs">
+                            Scansiona il tuo sito con i nostri algoritmi AI
+                            avanzati
+                          </p>
+                        </div>
+
+                        <div className="dashboard-card rounded-md p-3 flex flex-col items-center text-center">
+                          <div className="w-10 h-10 rounded-full bg-[#9c55ff]/20 flex items-center justify-center mb-2">
+                            <Target className="w-5 h-5 text-[#9c55ff]" />
+                          </div>
+                          <h4 className="text-white text-sm font-medium mb-1">
+                            Analisi dei competitor
+                          </h4>
+                          <p className="text-white/60 text-xs">
+                            Scopri come ti posizioni rispetto ai tuoi competitor
+                          </p>
+                        </div>
+
+                        <div className="dashboard-card rounded-md p-3 flex flex-col items-center text-center">
+                          <div className="w-10 h-10 rounded-full bg-[#9c55ff]/20 flex items-center justify-center mb-2">
+                            <BarChart3 className="w-5 h-5 text-[#9c55ff]" />
+                          </div>
+                          <h4 className="text-white text-sm font-medium mb-1">
+                            Metriche di performance
+                          </h4>
+                          <p className="text-white/60 text-xs">
+                            Monitora il tuo progresso SEO nel tempo
+                          </p>
+                        </div>
+                      </div>
                     </div>
-                    <button className="p-1.5 rounded-md border border-[#ffffff20]">
-                      <Settings className="w-4 h-4 text-white/60" />
+
+                    {/* Screenshot 2: Analysis in Progress (Partially Visible) */}
+                    <div className="dashboard-card rounded-md p-5 mb-4 transform translate-y-4 scale-95 opacity-80 relative">
+                      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#150a1f] opacity-50 rounded-md pointer-events-none"></div>
+
+                      <h3 className="text-white text-lg font-title mb-4 flex items-center">
+                        <Zap className="w-5 h-5 mr-2 text-[#9c55ff]" />
+                        Analizziamo il tuo sito web
+                      </h3>
+
+                      <div className="mb-4">
+                        <div className="flex justify-between items-center mb-2">
+                          <span className="text-white/80 text-sm">
+                            agenziamarketing.ai
+                          </span>
+                          <span className="text-white/60 text-xs">
+                            67% completato
+                          </span>
+                        </div>
+
+                        <div className="w-full h-2 bg-[#2a193c] rounded-full overflow-hidden mb-3">
+                          <div className="h-full bg-[#9c55ff] rounded-full w-[67%]"></div>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-3">
+                        <div className="dashboard-card rounded-md p-3">
+                          <div className="flex items-center mb-2">
+                            <CheckCircle2 className="w-4 h-4 mr-1.5 text-[#4ade80]" />
+                            <h4 className="text-white text-sm">SEO tecnica</h4>
+                          </div>
+                          <div className="flex items-center justify-between text-xs">
+                            <span className="text-white/60">
+                              Velocità di caricamento pagina
+                            </span>
+                            <span className="text-[#4ade80]">Ottimo</span>
+                          </div>
+                        </div>
+
+                        <div className="dashboard-card rounded-md p-3">
+                          <div className="flex items-center mb-2">
+                            <CheckCircle2 className="w-4 h-4 mr-1.5 text-[#4ade80]" />
+                            <h4 className="text-white text-sm">
+                              Analisi dei contenuti
+                            </h4>
+                          </div>
+                          <div className="flex items-center justify-between text-xs">
+                            <span className="text-white/60">
+                              Numero di parole
+                            </span>
+                            <span className="text-white/80">1,245</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Screenshot 3: Strategy (Even Less Visible) */}
+                    <div className="dashboard-card rounded-md p-5 transform translate-y-8 scale-90 opacity-60 relative">
+                      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#150a1f] opacity-70 rounded-md pointer-events-none"></div>
+
+                      <h3 className="text-white text-lg font-title mb-4 flex items-center">
+                        <FileText className="w-5 h-5 mr-2 text-[#9c55ff]" />
+                        La tua strategia SEO
+                      </h3>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="dashboard-card rounded-md p-3">
+                          <h4 className="text-white text-sm font-medium mb-2">
+                            Keywords suggerite
+                          </h4>
+                          <div className="flex flex-wrap gap-1.5">
+                            <span className="bg-[#9c55ff]/20 text-[#9c55ff] text-xs px-2 py-0.5 rounded">
+                              strategia seo
+                            </span>
+                            <span className="bg-[#9c55ff]/20 text-[#9c55ff] text-xs px-2 py-0.5 rounded">
+                              strumenti seo ai
+                            </span>
+                            <span className="bg-[#9c55ff]/20 text-[#9c55ff] text-xs px-2 py-0.5 rounded">
+                              ottimizzazione contenuti
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="dashboard-card rounded-md p-3">
+                          <h4 className="text-white text-sm font-medium mb-2">
+                            Piano dei contenuti
+                          </h4>
+                          <div className="flex items-center text-white/80 text-xs">
+                            <ArrowUpRight className="w-3.5 h-3.5 mr-1.5 text-[#9c55ff]" />
+                            Genera 3 post blog al mese
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Navigation Dots */}
+                  <div className="flex justify-center mt-8 gap-2">
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#9c55ff]"></div>
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#ffffff30]"></div>
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#ffffff30]"></div>
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#ffffff30]"></div>
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#ffffff30]"></div>
+                  </div>
+
+                  {/* Bottom Action Buttons */}
+                  <div className="flex justify- mt-6">
+                    <div className="flex gap-3">
+                      <button className="bg-[#2a193c] hover:bg-[#3a294c] text-white/80 px-4 py-2 rounded-md text-sm transition-colors">
+                        Salva step
+                      </button>
+                      <button className="bg-[#9c55ff] hover:bg-[#a865ff] text-white px-4 py-2 rounded-md text-sm transition-colors shadow-[0_0_10px_rgba(156,85,255,0.3)] flex items-center gap-1.5">
+                        Continua
+                        <ArrowRight className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile Dashboard Preview (visible only on small screens) */}
+          <div className="w-full max-w-xs dashboard-container md:hidden">
+            <div className="mobile-device">
+              {/* Mobile Device Frame */}
+              <div className="mobile-frame bg-[#020103] overflow-hidden border-4 border-[#2a193c] shadow-[0_0_80px_rgba(156,85,255,0.4)]">
+                {/* App Header */}
+                <div className="bg-[#1a0f26] px-4 py-3 flex justify-between items-center">
+                  <div className="flex items-center gap-2">
+                    <span className="text-white font-medium font-title text-sm">
+                      agenziamarketing.ai
+                    </span>
+                  </div>
+                  <button className="text-white">
+                    <Menu className="w-5 h-5" />
+                  </button>
+                </div>
+
+                {/* Mobile Content */}
+                <div className="bg-[#150a1f] h-[500px] overflow-y-auto p-4">
+                  {/* Step Indicator */}
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center">
+                      <div className="text-white/90 text-sm font-title">
+                        Setup sito web
+                      </div>
+                      <div className="ml-2 bg-[#9c55ff] text-white text-[10px] px-2 py-0.5 rounded-full">
+                        Step 1 di 5
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* URL Input */}
+                  <div className="dashboard-card rounded-md p-4 mb-4">
+                    <h3 className="text-white text-sm font-title mb-3 flex items-center">
+                      <Globe className="w-4 h-4 mr-1.5 text-[#9c55ff]" />
+                      Inserisci il tuo sito web
+                    </h3>
+
+                    <p className="text-white/80 text-xs mb-3">
+                      Analizzeremo il tuo sito web per identificare opportunità
+                      SEO.
+                    </p>
+
+                    <div className="relative mb-3">
+                      <Globe className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-white/60" />
+                      <div className="flex-1 bg-[#2a193c]/70 border border-[#ffffff20] rounded-lg px-4 py-3 text-sm text-white/50 focus:outline-none focus:ring-2 focus:ring-[#9c55ff]/50">
+                        https://agenziamarketing.ai
+                      </div>
+                    </div>
+
+                    <button className="w-full bg-[#9c55ff] py-2.5 rounded-md text-white font-medium shadow-[0_0_10px_rgba(156,85,255,0.3)] hover:bg-[#a865ff] transition-colors text-sm">
+                      Analizza
                     </button>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    {/* Visibility Card */}
-                    <div className="dashboard-card rounded-md p-4 relative">
-                      <div className="flex justify-between items-start mb-2">
-                        <div>
-                          <h3 className="text-white/70 text-sm font-title">
-                            Visibility
-                          </h3>
-                          <div className="flex items-end gap-2">
-                            <span className="text-white text-3xl font-semibold font-title">
-                              10.15%
-                            </span>
-                            <span className="text-[#4ade80] text-sm mb-1">
-                              +5.6%
-                            </span>
-                          </div>
+                  {/* Features */}
+                  <h3 className="text-white text-sm font-title mb-3">
+                    Funzionalità chiave
+                  </h3>
+
+                  <div className="space-y-3 mb-4">
+                    <div className="dashboard-card rounded-md p-3 flex items-start">
+                      <div className="w-8 h-8 rounded-full bg-[#9c55ff]/20 flex-shrink-0 flex items-center justify-center mr-3">
+                        <Sparkles className="w-4 h-4 text-[#9c55ff]" />
+                      </div>
+                      <div className="text-left">
+                        <h4 className="text-white text-xs font-medium mb-1">
+                          Analisi di mercato
+                        </h4>
+                        <p className="text-white/60 text-[11px]">
+                          Scansiona il tuo sito con i nostri algoritmi AI
+                          avanzati
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="dashboard-card rounded-md p-3 flex items-start">
+                      <div className="w-8 h-8 rounded-full bg-[#9c55ff]/20 flex-shrink-0 flex items-center justify-center mr-3">
+                        <Target className="w-4 h-4 text-[#9c55ff]" />
+                      </div>
+                      <div className="text-left">
+                        <h4 className="text-white text-xs font-medium mb-1">
+                          Analisi dei competitor
+                        </h4>
+                        <p className="text-white/60 text-[11px]">
+                          Scopri come ti posizioni rispetto ai tuoi competitor
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="dashboard-card rounded-md p-3 flex items-start">
+                      <div className="w-8 h-8 rounded-full bg-[#9c55ff]/20 flex-shrink-0 flex items-center justify-center mr-3">
+                        <BarChart3 className="w-4 h-4 text-[#9c55ff]" />
+                      </div>
+                      <div className="text-left">
+                        <h4 className="text-white text-xs font-medium mb-1">
+                          Metriche di performance
+                        </h4>
+                        <p className="text-white/60 text-[11px]">
+                          Monitora il tuo progresso SEO nel tempo
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Additional "Screenshots" in a Carousel-like Layout (Mobile) */}
+                  <div className="relative mt-6 mb-6">
+                    {/* Screenshot 2: Analysis in Progress (Partially Visible) */}
+                    <div className="dashboard-card rounded-md p-4 mb-3 transform translate-y-2 scale-95 opacity-80 relative">
+                      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#150a1f] opacity-50 rounded-md pointer-events-none"></div>
+
+                      <h3 className="text-white text-sm font-title mb-3 flex items-center">
+                        <Zap className="w-4 h-4 mr-1.5 text-[#9c55ff]" />
+                        Analizziamo il tuo sito web
+                      </h3>
+
+                      <div className="mb-3">
+                        <div className="flex justify-between items-center mb-1.5">
+                          <span className="text-white/80 text-xs">
+                            agenziamarketing.ai
+                          </span>
+                          <span className="text-white/60 text-[10px]">
+                            67% completato
+                          </span>
                         </div>
-                        <button>
-                          <CircleEllipsis className="w-4 h-4 text-white/60" />
-                        </button>
+
+                        <div className="w-full h-1.5 bg-[#2a193c] rounded-full overflow-hidden mb-2">
+                          <div className="h-full bg-[#9c55ff] rounded-full w-[67%]"></div>
+                        </div>
                       </div>
 
-                      <div className="h-32 mt-4 relative">
-                        {/* Chart Visualization */}
-                        <div className="absolute inset-0">
-                          <svg
-                            width="100%"
-                            height="100%"
-                            viewBox="0 0 300 100"
-                            preserveAspectRatio="none"
-                          >
-                            <defs>
-                              <linearGradient
-                                id="chart-gradient"
-                                x1="0%"
-                                y1="0%"
-                                x2="0%"
-                                y2="100%"
-                              >
-                                <stop
-                                  offset="0%"
-                                  stopColor="#9c55ff"
-                                  stopOpacity="0.25"
-                                />
-                                <stop
-                                  offset="100%"
-                                  stopColor="#9c55ff"
-                                  stopOpacity="0"
-                                />
-                              </linearGradient>
-                            </defs>
-                            <path
-                              d="M0,80 C20,70 40,90 60,75 C80,60 100,80 120,70 C140,60 160,80 180,50 C200,20 220,40 240,30 C260,20 280,40 300,30"
-                              className="chart-line"
-                            />
-                            <path
-                              d="M0,80 C20,70 40,90 60,75 C80,60 100,80 120,70 C140,60 160,80 180,50 C200,20 220,40 240,30 C260,20 280,40 300,30 L300,100 L0,100 Z"
-                              className="chart-area"
-                            />
-                          </svg>
+                      <div className="grid grid-cols-2 gap-2">
+                        <div className="dashboard-card rounded-md p-2">
+                          <div className="flex items-center mb-1">
+                            <CheckCircle2 className="w-3.5 h-3.5 mr-1 text-[#4ade80]" />
+                            <h4 className="text-white text-xs">
+                              SEO tecnica
+                            </h4>
+                          </div>
+                          <div className="flex items-center justify-between text-[10px]">
+                            <span className="text-white/60 text-left">
+                              Velocità di caricamento pagina
+                            </span>
+                            <span className="text-[#4ade80]">Ottimo</span>
+                          </div>
+                        </div>
 
-                          {/* Data Point Tooltip */}
-                          <div className="absolute top-1/4 right-1/4 -translate-y-full">
-                            <div className="bg-[#4d3763] rounded-md p-2 text-xs text-white shadow-lg tooltip-arrow shadow-[0_4px_20px_rgba(0,0,0,0.3)]">
-                              <div className="text-white/70">Jun 18</div>
-                              <div className="flex items-center gap-2">
-                                <span>Visibility</span>
-                                <span className="font-semibold font-title">
-                                  9.8%
-                                </span>
-                              </div>
-                            </div>
-                            <div className="w-2 h-2 bg-[#9c55ff] rounded-full absolute -bottom-1 left-1/2 transform -translate-x-1/2 shadow-[0_0_5px_rgba(156,85,255,0.5)]"></div>
+                        <div className="dashboard-card rounded-md p-2">
+                          <div className="flex items-center mb-1">
+                            <CheckCircle2 className="w-3.5 h-3.5 mr-1 text-[#4ade80]" />
+                            <h4 className="text-white text-xs">Contenuti</h4>
+                          </div>
+                          <div className="flex items-center justify-between text-[10px]">
+                            <span className="text-white/60">Parole</span>
+                            <span className="text-white/80">1,245</span>
                           </div>
                         </div>
                       </div>
                     </div>
 
-                    {/* Organic Keywords Card */}
-                    <div className="dashboard-card rounded-md p-4">
-                      <div className="flex justify-between items-start mb-2">
-                        <div>
-                          <h3 className="text-white/70 text-sm font-title">
-                            Organic Keywords
-                          </h3>
-                          <div className="flex items-end gap-2">
-                            <span className="text-white text-3xl font-semibold font-title">
-                              35.6K
+                    {/* Screenshot 3: Strategy (Even Less Visible) */}
+                    <div className="dashboard-card rounded-md p-4 transform translate-y-4 scale-90 opacity-60 relative">
+                      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#150a1f] opacity-70 rounded-md pointer-events-none"></div>
+
+                      <h3 className="text-white text-sm font-title mb-3 flex items-center">
+                        <FileText className="w-4 h-4 mr-1.5 text-[#9c55ff]" />
+                        La tua strategia SEO
+                      </h3>
+
+                      <div className="space-y-2">
+                        <div className="dashboard-card rounded-md p-2">
+                          <h4 className="text-white text-xs font-medium mb-1.5">
+                            Keywords suggerite
+                          </h4>
+                          <div className="flex flex-wrap gap-1">
+                            <span className="bg-[#9c55ff]/20 text-[#9c55ff] text-[10px] px-1.5 py-0.5 rounded">
+                              strategia seo
                             </span>
-                            <span className="text-[#f87171] text-sm mb-1">
-                              -2.5%
+                            <span className="bg-[#9c55ff]/20 text-[#9c55ff] text-[10px] px-1.5 py-0.5 rounded">
+                              strumenti seo ai
                             </span>
                           </div>
                         </div>
-                        <button>
-                          <CircleEllipsis className="w-4 h-4 text-white/60" />
-                        </button>
-                      </div>
 
-                      <div className="mt-4">
-                        <h4 className="text-white/70 text-sm mb-2 font-title">
-                          Top Keywords
-                        </h4>
-                        <div className="space-y-2">
-                          {[
-                            "online payment processing",
-                            "secure transactions",
-                            "online transaction platform",
-                            "online shopping payments",
-                            "e-commerce payment gateway",
-                            "B2B payment processing",
-                            "safe online payments",
-                          ].map((keyword, index) => (
-                            <div
-                              key={index}
-                              className="flex items-center justify-between"
-                            >
-                              <div className="flex items-center gap-2">
-                                <div className="w-2 h-2 rounded-full bg-[#9c55ff] shadow-[0_0_5px_rgba(156,85,255,0.5)]"></div>
-                                <span className="text-white/80 text-sm">
-                                  {keyword}
-                                </span>
-                              </div>
-                              <button>
-                                <MoreHorizontal className="w-4 h-4 text-white/60" />
-                              </button>
-                            </div>
-                          ))}
+                        <div className="dashboard-card rounded-md p-2">
+                          <h4 className="text-white text-xs font-medium mb-1.5">
+                            Piano dei contenuti
+                          </h4>
+                          <div className="flex items-center text-white/80 text-[10px]">
+                            <ArrowUpRight className="w-3 h-3 mr-1 text-[#9c55ff]" />
+                            Genera 3 post blog al mese
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  {/* Traffic Card */}
-                  <div className="dashboard-card rounded-md p-4">
-                    <div className="flex justify-between items-start mb-2">
-                      <div>
-                        <h3 className="text-white/70 text-sm font-title">
-                          Traffic
-                        </h3>
-                        <div className="flex items-end gap-2">
-                          <span className="text-white text-3xl font-semibold font-title">
-                            59.8K
-                          </span>
-                          <span className="text-[#4ade80] text-sm mb-1">
-                            +10.7%
-                          </span>
-                        </div>
-                      </div>
-                      <button>
-                        <CircleEllipsis className="w-4 h-4 text-white/60" />
-                      </button>
-                    </div>
+                  {/* Navigation Dots (Mobile) */}
+                  <div className="flex justify-center mb-4 gap-1.5">
+                    <div className="w-2 h-2 rounded-full bg-[#9c55ff]"></div>
+                    <div className="w-2 h-2 rounded-full bg-[#ffffff30]"></div>
+                    <div className="w-2 h-2 rounded-full bg-[#ffffff30]"></div>
+                    <div className="w-2 h-2 rounded-full bg-[#ffffff30]"></div>
+                    <div className="w-2 h-2 rounded-full bg-[#ffffff30]"></div>
+                  </div>
 
-                    <div className="h-24 mt-4">
-                      {/* Chart Visualization */}
-                      <svg
-                        width="100%"
-                        height="100%"
-                        viewBox="0 0 300 100"
-                        preserveAspectRatio="none"
-                      >
-                        <path
-                          d="M0,80 C30,75 60,85 90,70 C120,55 150,65 180,60 C210,55 240,45 270,20 C280,15 290,10 300,5"
-                          fill="none"
-                          stroke="#9c55ff"
-                          strokeWidth="2"
-                        />
-                      </svg>
-                    </div>
+                  {/* Action Buttons */}
+                  <div className="flex gap-2 mt-4">
+                    <button className="flex-1 bg-[#2a193c] hover:bg-[#3a294c] text-white/80 py-2.5 rounded-md text-xs transition-colors">
+                      Skip
+                    </button>
+                    <button className="flex-1 bg-[#9c55ff] hover:bg-[#a865ff] text-white py-2.5 rounded-md text-xs transition-colors shadow-[0_0_10px_rgba(156,85,255,0.3)] flex items-center justify-center gap-1">
+                      Continue
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </button>
                   </div>
                 </div>
               </div>
@@ -438,22 +560,31 @@ export default function Home() {
           {/* User Journey Section */}
           <UserJourney />
 
+          {/* Benefits Section */}
+          <BenefitsSection />
+
+          {/* Comparison Section */}
+          <ComparisonSection />
+
           {/* Waitlist Section */}
-          <div className="w-full max-w-4xl mt-24 mb-16 py-16 px-6 rounded-2xl border border-[#ffffff15] bg-[#150a1f]/60 backdrop-blur-md shadow-[0_0_50px_rgba(156,85,255,0.2)]">
+          <div
+            id="form"
+            className="w-full max-w-4xl mt-24 mb-16 py-16 px-6 rounded-2xl border border-[#ffffff15] bg-[#150a1f]/60 backdrop-blur-md shadow-[0_0_50px_rgba(156,85,255,0.2)]"
+          >
             <h2 className="text-4xl md:text-6xl font-title mb-10">
               Scopri il Futuro della SEO:
               <br />
-              Entra in Anteprima!
+              Entra subito!
             </h2>
 
             <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
               <input
                 type="email"
-                placeholder="Your email"
+                placeholder="La tua mail"
                 className="flex-1 bg-[#2a193c]/70 border border-[#ffffff20] rounded-lg px-4 py-3 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-[#9c55ff]/50"
               />
               <button className="bg-white text-[#2a193c] px-6 py-3 rounded-lg font-medium hover:bg-white/90 transition-colors font-title">
-                Voglio provare l’AI SEO
+                Prova ora
               </button>
             </div>
 

@@ -16,9 +16,20 @@ const spaceGrotesk = Space_Grotesk({
 })
 
 export const metadata: Metadata = {
-  title: "AI SEO Dashboard",
-  description: "Boost your rankings with AI",
-    generator: 'v0.dev'
+  title: "agenziamarketing.ai - SEO Automatizzata con Intelligenza Artificiale",
+  description: "Ottimizza la tua presenza online con l'AI che analizza, scrive e pubblica contenuti SEO-ready. Più traffico, meno lavoro.",
+  keywords: ["Automazione SEO AI", "AI SEO Keyword Research", "Contenuti SEO AI", "SEO Automatizzata", "Intelligenza Artificiale SEO"],
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/favicon/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+  },
+  manifest: '/site.webmanifest',
 }
 
 export default function RootLayout({

@@ -54,7 +54,7 @@ body {
 
 .dashboard-card {
   background-color: rgba(42, 25, 60, 0.85);
-  backdrop-filter: blur(8px);
+  /* backdrop-filter: blur(8px); */
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -100,6 +100,46 @@ h3 {
 .journey-step:nth-child(4) { animation-delay: 0.4s; }
 .journey-step:nth-child(5) { animation-delay: 0.5s; }
 .journey-step:nth-child(6) { animation-delay: 0.6s; }
+
+/* Grid Animations */
+@keyframes pulse {
+  0% { opacity: 0.2; }
+  50% { opacity: 0.8; }
+  100% { opacity: 0.2; }
+}
+
+@keyframes trace {
+  0% { background-position: -100px 0; }
+  100% { background-position: 100px 0; }
+}
+
+/* Floating Logo Animation */
+@keyframes float {
+  0% { transform: translateY(0px) rotate(var(--rotation)); }
+  50% { transform: translateY(-10px) rotate(var(--rotation)); }
+  100% { transform: translateY(0px) rotate(var(--rotation)); }
+}
+
+.floating-logo {
+  animation: float 6s ease-in-out infinite;
+  transform: rotate(var(--rotation));
+}
+
+.grid-line-horizontal {
+  background: linear-gradient(to right, transparent, rgba(156,85,255,0.4) 50%, transparent);
+  background-size: 200px 1px;
+  animation: trace 8s linear infinite;
+}
+
+.grid-line-vertical {
+  background: linear-gradient(to bottom, transparent, rgba(156,85,255,0.4) 50%, transparent);
+  background-size: 1px 200px;
+  animation: trace 10s linear infinite;
+}
+
+.grid-dot-pulse {
+  animation: pulse 7s ease-in-out infinite;
+}
 
 /* Journey Numbers Styling */
 .journey-step-number {
