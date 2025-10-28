@@ -268,7 +268,7 @@ const short: PitchData = {
       title: "Vuoi saperne di più?",
       bullets: [
         {
-          text: "Scrivi a info@agenziamarketing.ai",
+          text: "Scrivi a mattia@agenziamarketing.ai",
         },
       ],
     },

@@ -6,7 +6,7 @@ import { useState } from "react";
 
 export const ContactCTA = () => {
   const [copied, setCopied] = useState(false);
-  const email = "info@agenziamarketing.ai";
+  const email = "mattia@agenziamarketing.ai";
 
   const handleCopy = () => {
     navigator.clipboard.writeText(email);
