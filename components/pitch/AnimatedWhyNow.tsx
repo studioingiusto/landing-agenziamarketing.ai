@@ -3,25 +3,95 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Sparkles, TrendingUp, Brain, Search } from "lucide-react";
+import type { PitchLocale } from "@/pitch.data";
 
-export const AnimatedWhyNow = () => {
-  const [phase, setPhase] = useState<"traditional" | "aiOverview" | "zeroClick" | "adoption" | "moment">("traditional");
+const COPY: Record<
+  PitchLocale,
+  {
+    searchQuery: string;
+    overviewP1: string;
+    checklist: [string, string, string];
+    resultTitle: string;
+    resultSnippet: string;
+    adoptionLine: (n: number) => string;
+    adoptionSub: string;
+    momentTitle: string;
+    momentSub: string;
+    capTraditional: string;
+    capAi: string;
+    capZero: string;
+    capAdoption: string;
+    capMoment: string;
+  }
+> = {
+  it: {
+    searchQuery: "come migliorare la SEO del mio sito",
+    overviewP1:
+      "Per migliorare la SEO, inizia con un'<span class=\"font-semibold\">analisi tecnica completa</span>, ottimizza i contenuti per le keyword rilevanti e costruisci una strategia di link building.",
+    checklist: [
+      "✓ Audit tecnico e core web vitals",
+      "✓ Ricerca keyword e analisi competitor",
+      "✓ Contenuti ottimizzati e link building",
+    ],
+    resultTitle: "Guida SEO completa",
+    resultSnippet:
+      "Scopri le migliori strategie SEO per il 2025. Tecniche avanzate, tool consigliati e case study reali...",
+    adoptionLine: (n: number) => `${n}% adozione AI nel marketing`,
+    adoptionSub: "Ma scarsa integrazione e controllo operativo",
+    momentTitle: "⚡ IL MOMENTO È ADESSO",
+    momentSub: "La SEO sta cambiando. Serve adattarsi subito.",
+    capTraditional: "SERP tradizionale...",
+    capAi: "AI Overview appare ✨",
+    capZero: "Zero-click result si espande 📊",
+    capAdoption: "Adozione AI:",
+    capMoment: "⚡ WHY NOW",
+  },
+  en: {
+    searchQuery: "how to improve my site SEO",
+    overviewP1:
+      "To improve SEO, start with a <span class=\"font-semibold\">full technical audit</span>, optimize content for relevant keywords, and build a link-building strategy.",
+    checklist: [
+      "✓ Technical audit and Core Web Vitals",
+      "✓ Keyword research and competitor analysis",
+      "✓ Optimized content and link building",
+    ],
+    resultTitle: "Complete SEO guide",
+    resultSnippet:
+      "Discover the best SEO strategies for 2025. Advanced techniques, recommended tools, and real case studies...",
+    adoptionLine: (n: number) => `${n}% AI adoption in marketing`,
+    adoptionSub: "But weak integration and operational control",
+    momentTitle: "⚡ THE TIME IS NOW",
+    momentSub: "SEO is changing. Adapt immediately.",
+    capTraditional: "Traditional SERP...",
+    capAi: "AI Overview appears ✨",
+    capZero: "Zero-click result expands 📊",
+    capAdoption: "AI adoption:",
+    capMoment: "⚡ WHY NOW",
+  },
+};
+
+export interface AnimatedWhyNowProps {
+  locale?: PitchLocale;
+}
+
+export const AnimatedWhyNow = ({ locale = "it" }: AnimatedWhyNowProps) => {
+  const t = COPY[locale];
+  const [phase, setPhase] = useState<"traditional" | "aiOverview" | "zeroClick" | "adoption" | "moment">(
+    "traditional"
+  );
   const [adoption, setAdoption] = useState(0);
 
   useEffect(() => {
     let timeout: NodeJS.Timeout;
 
-    // Fase 1: Traditional SERP (2s)
     if (phase === "traditional") {
       timeout = setTimeout(() => setPhase("aiOverview"), 2000);
     }
 
-    // Fase 2: AI Overview appears (2s)
     if (phase === "aiOverview") {
       timeout = setTimeout(() => setPhase("zeroClick"), 2000);
     }
 
-    // Fase 3: Zero-click expands (2s)
     if (phase === "zeroClick") {
       timeout = setTimeout(() => {
         setPhase("adoption");
@@ -29,7 +99,6 @@ export const AnimatedWhyNow = () => {
       }, 2000);
     }
 
-    // Fase 4: Adoption counter (2s)
     if (phase === "adoption") {
       if (adoption < 88) {
         timeout = setTimeout(() => setAdoption(adoption + 2), 30);
@@ -38,7 +107,6 @@ export const AnimatedWhyNow = () => {
       }
     }
 
-    // Fase 5: Momento "Why Now" (2s)
     if (phase === "moment") {
       timeout = setTimeout(() => {
         setPhase("traditional");
@@ -51,34 +119,28 @@ export const AnimatedWhyNow = () => {
 
   return (
     <div className="w-full max-w-4xl mx-auto">
-      {/* Google Search Mockup */}
       <motion.div
         className="dashboard-card rounded-xl overflow-hidden border-2 border-white/10 relative"
         animate={{
           borderColor: phase === "moment" ? "rgba(156, 85, 255, 0.8)" : "rgba(255, 255, 255, 0.1)",
         }}
       >
-        {/* Search Header */}
         <div className="bg-white p-4 flex items-center gap-3 border-b border-gray-200">
           <Search className="w-5 h-5 text-gray-400" />
-          <div className="flex-1 text-gray-600 text-sm">
-            come migliorare la SEO del mio sito
-          </div>
+          <div className="flex-1 text-gray-600 text-sm">{t.searchQuery}</div>
           <div className="w-8 h-8 rounded-full bg-[#9c55ff]/20 flex items-center justify-center">
             <Sparkles className="w-4 h-4 text-[#9c55ff]" />
           </div>
         </div>
 
-        {/* SERP Results */}
         <div className="bg-white p-6 space-y-4">
-          {/* AI Overview - Only visible after phase 1 */}
           <AnimatePresence>
             {(phase === "aiOverview" || phase === "zeroClick" || phase === "adoption" || phase === "moment") && (
               <motion.div
                 initial={{ opacity: 0, height: 0, y: -20 }}
-                animate={{ 
-                  opacity: 1, 
-                  height: "auto", 
+                animate={{
+                  opacity: 1,
+                  height: "auto",
                   y: 0,
                   scale: phase === "zeroClick" ? 1.02 : 1,
                 }}
@@ -88,9 +150,7 @@ export const AnimatedWhyNow = () => {
               >
                 <div className="flex items-center gap-2 mb-3">
                   <Brain className="w-5 h-5 text-blue-600" />
-                  <span className="font-semibold text-blue-900 text-sm">
-                    AI Overview
-                  </span>
+                  <span className="font-semibold text-blue-900 text-sm">AI Overview</span>
                   <motion.div
                     animate={{ rotate: 360 }}
                     transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
@@ -98,48 +158,36 @@ export const AnimatedWhyNow = () => {
                     <Sparkles className="w-4 h-4 text-purple-500" />
                   </motion.div>
                 </div>
-                
+
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.3 }}
                   className="text-gray-700 text-sm space-y-2"
                 >
-                  <p>
-                    Per migliorare la SEO, inizia con un'<span className="font-semibold">analisi tecnica completa</span>, 
-                    ottimizza i contenuti per le keyword rilevanti e costruisci una strategia di link building.
-                  </p>
-                  
+                  <p dangerouslySetInnerHTML={{ __html: t.overviewP1 }} />
+
                   {phase === "zeroClick" && (
                     <motion.div
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
                       className="bg-white/50 rounded p-3 text-xs space-y-1"
                     >
-                      <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 rounded-full bg-green-500" />
-                        <span>✓ Audit tecnico e core web vitals</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 rounded-full bg-green-500" />
-                        <span>✓ Ricerca keyword e analisi competitor</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 rounded-full bg-green-500" />
-                        <span>✓ Contenuti ottimizzati e link building</span>
-                      </div>
+                      {t.checklist.map((line, i) => (
+                        <div key={i} className="flex items-center gap-2">
+                          <div className="w-2 h-2 rounded-full bg-green-500" />
+                          <span>{line}</span>
+                        </div>
+                      ))}
                     </motion.div>
                   )}
                 </motion.div>
 
-                <div className="mt-3 text-xs text-gray-500">
-                  Zero-click result • Powered by AI
-                </div>
+                <div className="mt-3 text-xs text-gray-500">Zero-click result • Powered by AI</div>
               </motion.div>
             )}
           </AnimatePresence>
 
-          {/* Traditional Results - Fade out after AI Overview */}
           <motion.div
             animate={{
               opacity: phase === "traditional" ? 1 : 0.3,
@@ -150,18 +198,14 @@ export const AnimatedWhyNow = () => {
             {[1, 2, 3].map((i) => (
               <div key={i} className="border-b border-gray-100 pb-3">
                 <div className="text-blue-600 text-sm font-medium mb-1">
-                  Guida SEO completa {i} • esempio-seo.com
+                  {t.resultTitle} {i} • example-seo.com
                 </div>
-                <div className="text-gray-600 text-xs">
-                  Scopri le migliori strategie SEO per il 2025. Tecniche avanzate, 
-                  tool consigliati e case study reali...
-                </div>
+                <div className="text-gray-600 text-xs">{t.resultSnippet}</div>
               </div>
             ))}
           </motion.div>
         </div>
 
-        {/* Adoption Stats - Bottom Banner */}
         <AnimatePresence>
           {(phase === "adoption" || phase === "moment") && (
             <motion.div
@@ -174,12 +218,8 @@ export const AnimatedWhyNow = () => {
                 <div className="flex items-center gap-3">
                   <TrendingUp className="w-6 h-6 text-white" />
                   <div>
-                    <div className="text-white font-semibold text-lg">
-                      {adoption}% adozione AI nel marketing
-                    </div>
-                    <div className="text-white/80 text-xs">
-                      Ma scarsa integrazione e controllo operativo
-                    </div>
+                    <div className="text-white font-semibold text-lg">{t.adoptionLine(adoption)}</div>
+                    <div className="text-white/80 text-xs">{t.adoptionSub}</div>
                   </div>
                 </div>
                 <div className="text-white/60 text-xs">2024-2025</div>
@@ -188,7 +228,6 @@ export const AnimatedWhyNow = () => {
           )}
         </AnimatePresence>
 
-        {/* "Why Now" Moment - Overlay on Animation Container */}
         <AnimatePresence>
           {phase === "moment" && (
             <motion.div
@@ -209,31 +248,25 @@ export const AnimatedWhyNow = () => {
                 >
                   <Sparkles className="w-12 h-12 text-white" />
                 </motion.div>
-                <div className="text-white text-3xl md:text-4xl font-bold mb-3">
-                  ⚡ IL MOMENTO È ADESSO
-                </div>
-                <div className="text-white/90 text-base md:text-lg">
-                  La SEO sta cambiando. Serve adattarsi subito.
-                </div>
+                <div className="text-white text-3xl md:text-4xl font-bold mb-3">{t.momentTitle}</div>
+                <div className="text-white/90 text-base md:text-lg">{t.momentSub}</div>
               </motion.div>
             </motion.div>
           )}
         </AnimatePresence>
       </motion.div>
 
-      {/* Caption */}
       <motion.div
         className="text-center mt-4 text-white/60 text-sm"
         animate={{ opacity: [0.5, 1, 0.5] }}
         transition={{ duration: 2, repeat: Infinity }}
       >
-        {phase === "traditional" && "SERP tradizionale..."}
-        {phase === "aiOverview" && "AI Overview appare ✨"}
-        {phase === "zeroClick" && "Zero-click result si espande 📊"}
-        {phase === "adoption" && `Adozione AI: ${adoption}% 📈`}
-        {phase === "moment" && "⚡ WHY NOW"}
+        {phase === "traditional" && t.capTraditional}
+        {phase === "aiOverview" && t.capAi}
+        {phase === "zeroClick" && t.capZero}
+        {phase === "adoption" && `${t.capAdoption} ${adoption}% 📈`}
+        {phase === "moment" && t.capMoment}
       </motion.div>
     </div>
   );
 };
-

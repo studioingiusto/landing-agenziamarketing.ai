@@ -50,6 +50,8 @@ export interface PitchBrand {
   primaryColor?: string;
 }
 
+export type PitchLocale = "it" | "en";
+
 // Struttura completa del pitch
 export interface PitchData {
   brand: PitchBrand;

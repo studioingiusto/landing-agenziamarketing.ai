@@ -3,10 +3,49 @@
 import { motion } from "framer-motion";
 import { Mail, Sparkles, ArrowRight } from "lucide-react";
 import { useState } from "react";
+import type { PitchLocale } from "@/pitch.data";
 
-export const ContactCTA = () => {
+const COPY: Record<
+  PitchLocale,
+  {
+    title: string;
+    subtitle: string;
+    emailLabel: string;
+    copied: string;
+    reply24h: string;
+    customDemo: string;
+    footer: string;
+  }
+> = {
+  it: {
+    title: "Vuoi saperne di più?",
+    subtitle: "Parliamo di come agenziamarketing.ai può trasformare il tuo business",
+    emailLabel: "Contattaci via email",
+    copied: "✓ Email copiata negli appunti!",
+    reply24h: "Risposta entro 24h",
+    customDemo: "Demo personalizzata disponibile",
+    footer: "Grazie per l'attenzione. Siamo pronti a mostrarti il futuro della SEO.",
+  },
+  en: {
+    title: "Want to know more?",
+    subtitle: "Let's talk about how agenziamarketing.ai can transform your business",
+    emailLabel: "Contact us by email",
+    copied: "✓ Email copied to clipboard!",
+    reply24h: "Reply within 24h",
+    customDemo: "Personalized demo available",
+    footer: "Thanks for your time. We're ready to show you the future of SEO.",
+  },
+};
+
+export interface ContactCTAProps {
+  locale?: PitchLocale;
+  tagline: string;
+}
+
+export const ContactCTA = ({ locale = "it", tagline }: ContactCTAProps) => {
   const [copied, setCopied] = useState(false);
   const email = "mattia@agenziamarketing.ai";
+  const t = COPY[locale];
 
   const handleCopy = () => {
     navigator.clipboard.writeText(email);
@@ -23,9 +62,7 @@ export const ContactCTA = () => {
         transition={{ duration: 0.8 }}
         className="relative overflow-hidden"
       >
-        {/* Background Effects */}
         <div className="absolute inset-0">
-          {/* Gradient Orbs */}
           <motion.div
             animate={{
               scale: [1, 1.2, 1],
@@ -44,9 +81,7 @@ export const ContactCTA = () => {
           />
         </div>
 
-        {/* Main Content */}
         <div className="relative z-10 dashboard-card rounded-3xl p-12 md:p-16 border-2 border-[#9c55ff]/30 text-center">
-          {/* Sparkles Animation */}
           <motion.div
             animate={{ rotate: [0, 360] }}
             transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
@@ -62,7 +97,6 @@ export const ContactCTA = () => {
             <Sparkles className="w-12 h-12 text-[#c685ff]" />
           </motion.div>
 
-          {/* Title */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -71,14 +105,11 @@ export const ContactCTA = () => {
             className="mb-8"
           >
             <h2 className="text-4xl md:text-6xl font-title font-bold mb-4">
-              <span className="gradient-text">Vuoi saperne di più?</span>
+              <span className="gradient-text">{t.title}</span>
             </h2>
-            <p className="text-white/60 text-lg md:text-xl">
-              Parliamo di come agenziamarketing.ai può trasformare il tuo business
-            </p>
+            <p className="text-white/60 text-lg md:text-xl">{t.subtitle}</p>
           </motion.div>
 
-          {/* Email Card */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -98,7 +129,7 @@ export const ContactCTA = () => {
                     <Mail className="w-7 h-7 text-[#9c55ff]" />
                   </div>
                   <div className="text-left">
-                    <div className="text-white/60 text-sm mb-1">Contattaci via email</div>
+                    <div className="text-white/60 text-sm mb-1">{t.emailLabel}</div>
                     <div className="text-2xl md:text-3xl font-bold text-white group-hover:text-[#c685ff] transition-colors">
                       {email}
                     </div>
@@ -107,18 +138,16 @@ export const ContactCTA = () => {
                 </div>
               </motion.button>
 
-              {/* Copy Feedback */}
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: copied ? 1 : 0, y: copied ? 0 : 10 }}
                 className="mt-3 text-green-400 text-sm font-medium"
               >
-                ✓ Email copiata negli appunti!
+                {t.copied}
               </motion.div>
             </div>
           </motion.div>
 
-          {/* Additional CTAs */}
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -128,15 +157,14 @@ export const ContactCTA = () => {
           >
             <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-2">
               <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-              <span className="text-white/70 text-sm">Risposta entro 24h</span>
+              <span className="text-white/70 text-sm">{t.reply24h}</span>
             </div>
             <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-2">
               <Sparkles className="w-4 h-4 text-[#9c55ff]" />
-              <span className="text-white/70 text-sm">Demo personalizzata disponibile</span>
+              <span className="text-white/70 text-sm">{t.customDemo}</span>
             </div>
           </motion.div>
 
-          {/* Bottom Tagline */}
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -144,14 +172,11 @@ export const ContactCTA = () => {
             transition={{ delay: 0.8 }}
             className="mt-12 pt-8 border-t border-white/10"
           >
-            <p className="text-white/50 text-sm">
-              Grazie per l'attenzione. Siamo pronti a mostrarti il futuro della SEO.
-            </p>
+            <p className="text-white/50 text-sm">{t.footer}</p>
           </motion.div>
         </div>
       </motion.div>
 
-      {/* Brand Footer */}
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -159,14 +184,9 @@ export const ContactCTA = () => {
         transition={{ delay: 1 }}
         className="text-center mt-8"
       >
-        <div className="text-3xl md:text-4xl font-title font-bold gradient-text mb-2">
-          agenziamarketing.ai
-        </div>
-        <div className="text-white/40 text-sm">
-          Strategia SEO automatizzata. Intelligenza umana, velocità AI.
-        </div>
+        <div className="text-3xl md:text-4xl font-title font-bold gradient-text mb-2">agenziamarketing.ai</div>
+        <div className="text-white/40 text-sm">{tagline}</div>
       </motion.div>
     </div>
   );
 };
-

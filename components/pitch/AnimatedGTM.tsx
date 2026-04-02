@@ -2,23 +2,135 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
-import { 
-  Play, 
-  Users, 
-  Zap, 
-  TrendingUp, 
-  UserPlus, 
+import {
+  Play,
+  Zap,
+  TrendingUp,
+  UserPlus,
+  Users,
   CheckCircle,
   ArrowRight,
   Sparkles,
   Target,
   MessageCircle,
-  RefreshCw
+  RefreshCw,
 } from "lucide-react";
+import type { PitchLocale } from "@/pitch.data";
 
 type Phase = "demo" | "pipeline" | "aha" | "conversion" | "community";
 
-export const AnimatedGTM = () => {
+const COPY: Record<
+  PitchLocale,
+  {
+    header: string;
+    sub: string;
+    demoTitle: string;
+    demoSub: string;
+    inputUrl: string;
+    readyPublish: string;
+    steps: [string, string, string, string, string];
+    pipelineTitle: string;
+    pipelineSub: string;
+    interestedCustomers: string;
+    customersSub: string;
+    conversionRate: string;
+    conversionSub: string;
+    plgFunnel: string;
+    ahaTitle: string;
+    ahaSub: string;
+    quote: string;
+    quoteSub: string;
+    cardTitle: string;
+    cardLines: [string, string, string];
+    readyChip: string;
+    roiChip: string;
+    betaTitle: string;
+    betaSub: string;
+    onboardingSteps: [string, string, string];
+    communityTitle: string;
+    communitySub: string;
+    growthLoop: string;
+    caption: string;
+  }
+> = {
+  it: {
+    header: "Customer Journey - GTM Strategy",
+    sub: "Dal primo contatto alla community attiva",
+    demoTitle: "Demo Veloce 8-12s",
+    demoSub: "Input → Output immediato",
+    inputUrl: "Input URL",
+    readyPublish: "Ready to Publish",
+    steps: ["Analisi", "Keyword", "Piano", "Contenuti", "Pubblicazione"],
+    pipelineTitle: "Pipeline Attiva",
+    pipelineSub: "Interesse validato dal mercato",
+    interestedCustomers: "Clienti Interessati",
+    customersSub: "Agenzie + PMI già acquisite",
+    conversionRate: "Conversion Rate",
+    conversionSub: "Disponibili a testare la beta",
+    plgFunnel: "Pipeline PLG",
+    ahaTitle: "Aha! Moment",
+    ahaSub: "Guided Strategy in azione",
+    quote: '💡 "Il sistema mi dice cosa pubblicare ORA"',
+    quoteSub: "Con motivazione chiara e priorità automatica",
+    cardTitle: 'Pubblica: "Guida SEO Local 2025"',
+    cardLines: [
+      '✓ Keyword gap rilevato: "SEO local" (1.2k vol, bassa comp.)',
+      "✓ Intent: informational → guida pratica",
+      "✓ Priorità: ALTA (opportunità rapida)",
+    ],
+    readyChip: "✓ Contenuto pronto",
+    roiChip: "ROI stimato: 3 mesi",
+    betaTitle: "Beta Guidata",
+    betaSub: "Onboarding assistito",
+    onboardingSteps: ["Demo Personalizzata", "Onboarding Guidato", "Primo Progetto"],
+    communityTitle: "PLG Loop + Community",
+    communitySub: '"AI-safe SEO" Growth Engine',
+    growthLoop: "Self-sustaining Growth Loop",
+    caption: "🚀 Pipeline PLG validata con early customers",
+  },
+  en: {
+    header: "Customer journey — GTM strategy",
+    sub: "From first touch to an active community",
+    demoTitle: "Quick 8–12s demo",
+    demoSub: "Immediate input → output",
+    inputUrl: "Input URL",
+    readyPublish: "Ready to publish",
+    steps: ["Analysis", "Keywords", "Plan", "Content", "Publishing"],
+    pipelineTitle: "Active pipeline",
+    pipelineSub: "Market-validated interest",
+    interestedCustomers: "Interested customers",
+    customersSub: "Agencies + SMBs already engaged",
+    conversionRate: "Conversion rate",
+    conversionSub: "Willing to try the beta",
+    plgFunnel: "PLG pipeline",
+    ahaTitle: "Aha! moment",
+    ahaSub: "Guided Strategy in action",
+    quote: '💡 "The system tells me what to publish NOW"',
+    quoteSub: "Clear rationale and automatic priority",
+    cardTitle: 'Publish: "Local SEO guide 2025"',
+    cardLines: [
+      '✓ Keyword gap: "local SEO" (1.2k vol., low comp.)',
+      "✓ Intent: informational → practical guide",
+      "✓ Priority: HIGH (quick win)",
+    ],
+    readyChip: "✓ Content ready",
+    roiChip: "Est. ROI: 3 months",
+    betaTitle: "Guided beta",
+    betaSub: "Assisted onboarding",
+    onboardingSteps: ["Personalized demo", "Guided onboarding", "First project"],
+    communityTitle: "PLG loop + community",
+    communitySub: '"AI-safe SEO" growth engine',
+    growthLoop: "Self-sustaining growth loop",
+    caption: "🚀 PLG pipeline validated with early customers",
+  },
+};
+
+export interface AnimatedGTMProps {
+  locale?: PitchLocale;
+}
+
+export const AnimatedGTM = ({ locale = "it" }: AnimatedGTMProps) => {
+  const t = COPY[locale];
   const [phase, setPhase] = useState<Phase>("demo");
   const [demoProgress, setDemoProgress] = useState(0);
   const [showAha, setShowAha] = useState(false);
@@ -27,11 +139,10 @@ export const AnimatedGTM = () => {
     let timeout: NodeJS.Timeout;
 
     if (phase === "demo") {
-      // Demo 8-12s animation
       if (demoProgress < 100) {
         timeout = setTimeout(() => {
           setDemoProgress(Math.min(demoProgress + 1, 100));
-        }, 100); // 10s total
+        }, 100);
       } else {
         timeout = setTimeout(() => setPhase("pipeline"), 1000);
       }
@@ -56,21 +167,21 @@ export const AnimatedGTM = () => {
     return () => clearTimeout(timeout);
   }, [phase, demoProgress, showAha]);
 
+  const demoSteps = [0, 1, 2, 3, 4].map((s) => ({
+    step: s + 1,
+    label: t.steps[s],
+    progress: Math.max(0, Math.min((demoProgress - s * 20) * 5, 100)),
+  }));
+
   return (
     <div className="w-full max-w-6xl mx-auto">
       <div className="dashboard-card rounded-2xl p-6 md:p-8 border-2 border-[#9c55ff]/20">
-        {/* Header */}
         <div className="text-center mb-8">
-          <h3 className="text-white text-xl md:text-2xl font-bold mb-2">
-            Customer Journey - GTM Strategy
-          </h3>
-          <p className="text-white/60 text-sm">
-            Dal primo contatto alla community attiva
-          </p>
+          <h3 className="text-white text-xl md:text-2xl font-bold mb-2">{t.header}</h3>
+          <p className="text-white/60 text-sm">{t.sub}</p>
         </div>
 
         <AnimatePresence mode="wait">
-          {/* Phase 1: Quick Demo */}
           {phase === "demo" && (
             <motion.div
               key="demo"
@@ -84,38 +195,30 @@ export const AnimatedGTM = () => {
                   <Play className="w-6 h-6 text-[#9c55ff]" />
                 </div>
                 <div>
-                  <div className="text-white font-bold text-lg">Demo Veloce 8-12s</div>
-                  <div className="text-white/60 text-sm">Input → Output immediato</div>
+                  <div className="text-white font-bold text-lg">{t.demoTitle}</div>
+                  <div className="text-white/60 text-sm">{t.demoSub}</div>
                 </div>
               </div>
 
-              {/* Demo Flow Visualization */}
               <div className="bg-[#2a193c]/50 rounded-xl p-6 border border-[#9c55ff]/20">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2">
                     <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center">
                       <span className="text-blue-400 text-xs font-bold">1</span>
                     </div>
-                    <span className="text-white/70 text-sm">Input URL</span>
+                    <span className="text-white/70 text-sm">{t.inputUrl}</span>
                   </div>
                   <ArrowRight className="w-4 h-4 text-white/30" />
                   <div className="flex items-center gap-2">
                     <div className="w-8 h-8 rounded-full bg-[#9c55ff]/20 flex items-center justify-center">
                       <span className="text-[#9c55ff] text-xs font-bold">5</span>
                     </div>
-                    <span className="text-white/70 text-sm">Ready to Publish</span>
+                    <span className="text-white/70 text-sm">{t.readyPublish}</span>
                   </div>
                 </div>
 
-                {/* Progress Steps */}
                 <div className="space-y-2 mb-4">
-                  {[
-                    { step: 1, label: "Analisi", progress: Math.min(demoProgress * 5, 100) },
-                    { step: 2, label: "Keyword", progress: Math.max(0, Math.min((demoProgress - 20) * 5, 100)) },
-                    { step: 3, label: "Piano", progress: Math.max(0, Math.min((demoProgress - 40) * 5, 100)) },
-                    { step: 4, label: "Contenuti", progress: Math.max(0, Math.min((demoProgress - 60) * 5, 100)) },
-                    { step: 5, label: "Pubblicazione", progress: Math.max(0, Math.min((demoProgress - 80) * 5, 100)) },
-                  ].map((item) => (
+                  {demoSteps.map((item) => (
                     <div key={item.step} className="flex items-center gap-3">
                       <div className="w-20 text-white/60 text-xs">{item.label}</div>
                       <div className="flex-1 h-2 bg-white/10 rounded-full overflow-hidden">
@@ -124,14 +227,11 @@ export const AnimatedGTM = () => {
                           style={{ width: `${item.progress}%` }}
                         />
                       </div>
-                      {item.progress >= 100 && (
-                        <CheckCircle className="w-4 h-4 text-green-400" />
-                      )}
+                      {item.progress >= 100 && <CheckCircle className="w-4 h-4 text-green-400" />}
                     </div>
                   ))}
                 </div>
 
-                {/* Timer */}
                 <div className="text-center">
                   <div className="inline-flex items-center gap-2 bg-[#9c55ff]/10 border border-[#9c55ff]/30 rounded-full px-4 py-2">
                     <div className="w-2 h-2 rounded-full bg-[#9c55ff] animate-pulse" />
@@ -144,7 +244,6 @@ export const AnimatedGTM = () => {
             </motion.div>
           )}
 
-          {/* Phase 2: Pipeline (10 clienti + waitlist) */}
           {phase === "pipeline" && (
             <motion.div
               key="pipeline"
@@ -158,13 +257,12 @@ export const AnimatedGTM = () => {
                   <Target className="w-6 h-6 text-blue-400" />
                 </div>
                 <div>
-                  <div className="text-white font-bold text-lg">Pipeline Attiva</div>
-                  <div className="text-white/60 text-sm">Interesse validato dal mercato</div>
+                  <div className="text-white font-bold text-lg">{t.pipelineTitle}</div>
+                  <div className="text-white/60 text-sm">{t.pipelineSub}</div>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Early Customers */}
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -180,12 +278,11 @@ export const AnimatedGTM = () => {
                     >
                       10
                     </motion.div>
-                    <div className="text-white font-semibold mb-1">Clienti Interessati</div>
-                    <div className="text-white/60 text-xs">Agenzie + PMI già acquisite</div>
+                    <div className="text-white font-semibold mb-1">{t.interestedCustomers}</div>
+                    <div className="text-white/60 text-xs">{t.customersSub}</div>
                   </div>
                 </motion.div>
 
-                {/* Waitlist */}
                 <motion.div
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -201,13 +298,12 @@ export const AnimatedGTM = () => {
                     >
                       70%+
                     </motion.div>
-                    <div className="text-white font-semibold mb-1">Conversion Rate</div>
-                    <div className="text-white/60 text-xs">Disponibili a testare la beta</div>
+                    <div className="text-white font-semibold mb-1">{t.conversionRate}</div>
+                    <div className="text-white/60 text-xs">{t.conversionSub}</div>
                   </div>
                 </motion.div>
               </div>
 
-              {/* Funnel Visual */}
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -215,22 +311,17 @@ export const AnimatedGTM = () => {
                 className="flex justify-center"
               >
                 <div className="text-center">
-                  <div className="text-white/60 text-sm mb-2">Pipeline PLG</div>
+                  <div className="text-white/60 text-sm mb-2">{t.plgFunnel}</div>
                   <div className="flex items-center gap-2">
-                    <div className="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full text-sm">
-                      Waitlist
-                    </div>
+                    <div className="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full text-sm">Waitlist</div>
                     <ArrowRight className="w-4 h-4 text-white/40" />
-                    <div className="bg-[#9c55ff]/20 text-[#9c55ff] px-3 py-1 rounded-full text-sm">
-                      Beta Testers
-                    </div>
+                    <div className="bg-[#9c55ff]/20 text-[#9c55ff] px-3 py-1 rounded-full text-sm">Beta Testers</div>
                   </div>
                 </div>
               </motion.div>
             </motion.div>
           )}
 
-          {/* Phase 3: Aha Moment - Guided Strategy */}
           {phase === "aha" && (
             <motion.div
               key="aha"
@@ -244,17 +335,16 @@ export const AnimatedGTM = () => {
                   <Zap className="w-6 h-6 text-amber-400" />
                 </div>
                 <div>
-                  <div className="text-white font-bold text-lg">Aha! Moment</div>
-                  <div className="text-white/60 text-sm">Guided Strategy in azione</div>
+                  <div className="text-white font-bold text-lg">{t.ahaTitle}</div>
+                  <div className="text-white/60 text-sm">{t.ahaSub}</div>
                 </div>
               </div>
 
               <div className="bg-gradient-to-br from-amber-500/10 to-transparent rounded-xl p-8 border-2 border-amber-500/30 relative overflow-hidden">
-                {/* Background Sparkles */}
                 <motion.div
-                  animate={{ 
+                  animate={{
                     scale: [1, 1.2, 1],
-                    rotate: [0, 180, 360] 
+                    rotate: [0, 180, 360],
                   }}
                   transition={{ duration: 3, repeat: Infinity }}
                   className="absolute top-4 right-4 opacity-20"
@@ -270,7 +360,7 @@ export const AnimatedGTM = () => {
                       transition={{ delay: 0.2 }}
                       className="text-2xl md:text-3xl font-bold text-white mb-3"
                     >
-                      💡 "Il sistema mi dice cosa pubblicare ORA"
+                      {t.quote}
                     </motion.div>
                     <motion.p
                       initial={{ opacity: 0 }}
@@ -278,11 +368,10 @@ export const AnimatedGTM = () => {
                       transition={{ delay: 0.5 }}
                       className="text-white/70 text-sm"
                     >
-                      Con motivazione chiara e priorità automatica
+                      {t.quoteSub}
                     </motion.p>
                   </div>
 
-                  {/* Example Guided Strategy Card */}
                   <AnimatePresence>
                     {showAha && (
                       <motion.div
@@ -296,22 +385,23 @@ export const AnimatedGTM = () => {
                             <Sparkles className="w-4 h-4 text-amber-400" />
                           </div>
                           <div className="flex-1">
-                            <div className="text-white font-semibold text-sm mb-1">
-                              Pubblica: "Guida SEO Local 2025"
-                            </div>
+                            <div className="text-white font-semibold text-sm mb-1">{t.cardTitle}</div>
                             <div className="text-white/60 text-xs leading-relaxed">
-                              ✓ Keyword gap rilevato: "SEO local" (1.2k vol, bassa comp.)<br/>
-                              ✓ Intent: informational → guida pratica<br/>
-                              ✓ Priorità: ALTA (opportunità rapida)
+                              {t.cardLines.map((line, i) => (
+                                <span key={i}>
+                                  {line}
+                                  <br />
+                                </span>
+                              ))}
                             </div>
                           </div>
                         </div>
                         <div className="flex gap-2">
                           <div className="flex-1 bg-green-500/10 border border-green-500/30 rounded px-3 py-1.5 text-green-400 text-xs text-center">
-                            ✓ Contenuto pronto
+                            {t.readyChip}
                           </div>
                           <div className="flex-1 bg-blue-500/10 border border-blue-500/30 rounded px-3 py-1.5 text-blue-400 text-xs text-center">
-                            ROI stimato: 3 mesi
+                            {t.roiChip}
                           </div>
                         </div>
                       </motion.div>
@@ -322,7 +412,6 @@ export const AnimatedGTM = () => {
             </motion.div>
           )}
 
-          {/* Phase 4: Beta Conversion */}
           {phase === "conversion" && (
             <motion.div
               key="conversion"
@@ -336,16 +425,16 @@ export const AnimatedGTM = () => {
                   <UserPlus className="w-6 h-6 text-green-400" />
                 </div>
                 <div>
-                  <div className="text-white font-bold text-lg">Beta Guidata</div>
-                  <div className="text-white/60 text-sm">Onboarding assistito</div>
+                  <div className="text-white font-bold text-lg">{t.betaTitle}</div>
+                  <div className="text-white/60 text-sm">{t.betaSub}</div>
                 </div>
               </div>
 
               <div className="space-y-4">
                 {[
-                  { step: "Demo Personalizzata", icon: Play, status: "complete" },
-                  { step: "Onboarding Guidato", icon: Target, status: "complete" },
-                  { step: "Primo Progetto", icon: Sparkles, status: "active" },
+                  { step: t.onboardingSteps[0], icon: Play, status: "complete" as const },
+                  { step: t.onboardingSteps[1], icon: Target, status: "complete" as const },
+                  { step: t.onboardingSteps[2], icon: Sparkles, status: "active" as const },
                 ].map((item, idx) => {
                   const Icon = item.icon;
                   return (
@@ -360,11 +449,11 @@ export const AnimatedGTM = () => {
                           : "border-white/10 bg-white/5"
                       }`}
                     >
-                      <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                        item.status === "complete"
-                          ? "bg-green-500/20"
-                          : "bg-[#9c55ff]/20"
-                      }`}>
+                      <div
+                        className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                          item.status === "complete" ? "bg-green-500/20" : "bg-[#9c55ff]/20"
+                        }`}
+                      >
                         {item.status === "complete" ? (
                           <CheckCircle className="w-5 h-5 text-green-400" />
                         ) : (
@@ -384,7 +473,6 @@ export const AnimatedGTM = () => {
             </motion.div>
           )}
 
-          {/* Phase 5: PLG Community Loop */}
           {phase === "community" && (
             <motion.div
               key="community"
@@ -398,14 +486,12 @@ export const AnimatedGTM = () => {
                   <MessageCircle className="w-6 h-6 text-[#9c55ff]" />
                 </div>
                 <div>
-                  <div className="text-white font-bold text-lg">PLG Loop + Community</div>
-                  <div className="text-white/60 text-sm">"AI-safe SEO" Growth Engine</div>
+                  <div className="text-white font-bold text-lg">{t.communityTitle}</div>
+                  <div className="text-white/60 text-sm">{t.communitySub}</div>
                 </div>
               </div>
 
-              {/* Community Growth Visualization */}
               <div className="relative">
-                {/* Center: Product */}
                 <div className="flex justify-center mb-8">
                   <motion.div
                     animate={{ scale: [1, 1.1, 1] }}
@@ -421,11 +507,10 @@ export const AnimatedGTM = () => {
                   </motion.div>
                 </div>
 
-                {/* Growth Elements Around */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {[
                     { icon: Users, label: "Community", desc: "AI-safe SEO", color: "blue" },
-                    { icon: TrendingUp, label: "Referral", desc: "Word of Mouth", color: "green" },
+                    { icon: TrendingUp, label: "Referral", desc: "Word of mouth", color: "green" },
                     { icon: Sparkles, label: "Product", desc: "Self-serve", color: "purple" },
                   ].map((item, idx) => {
                     const Icon = item.icon;
@@ -436,21 +521,31 @@ export const AnimatedGTM = () => {
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: idx * 0.2 }}
                         className={`dashboard-card rounded-xl p-4 text-center border ${
-                          item.color === "blue" ? "border-blue-500/30" :
-                          item.color === "green" ? "border-green-500/30" :
-                          "border-[#9c55ff]/30"
+                          item.color === "blue"
+                            ? "border-blue-500/30"
+                            : item.color === "green"
+                              ? "border-green-500/30"
+                              : "border-[#9c55ff]/30"
                         }`}
                       >
-                        <div className={`w-10 h-10 rounded-full mx-auto mb-2 flex items-center justify-center ${
-                          item.color === "blue" ? "bg-blue-500/20" :
-                          item.color === "green" ? "bg-green-500/20" :
-                          "bg-[#9c55ff]/20"
-                        }`}>
-                          <Icon className={`w-5 h-5 ${
-                            item.color === "blue" ? "text-blue-400" :
-                            item.color === "green" ? "text-green-400" :
-                            "text-[#9c55ff]"
-                          }`} />
+                        <div
+                          className={`w-10 h-10 rounded-full mx-auto mb-2 flex items-center justify-center ${
+                            item.color === "blue"
+                              ? "bg-blue-500/20"
+                              : item.color === "green"
+                                ? "bg-green-500/20"
+                                : "bg-[#9c55ff]/20"
+                          }`}
+                        >
+                          <Icon
+                            className={`w-5 h-5 ${
+                              item.color === "blue"
+                                ? "text-blue-400"
+                                : item.color === "green"
+                                  ? "text-green-400"
+                                  : "text-[#9c55ff]"
+                            }`}
+                          />
                         </div>
                         <div className="text-white font-semibold text-sm mb-1">{item.label}</div>
                         <div className="text-white/60 text-xs">{item.desc}</div>
@@ -468,35 +563,30 @@ export const AnimatedGTM = () => {
               >
                 <div className="inline-flex items-center gap-2 bg-[#9c55ff]/10 border border-[#9c55ff]/30 rounded-full px-4 py-2">
                   <RefreshCw className="w-4 h-4 text-[#9c55ff]" />
-                  <span className="text-white/80 text-sm">Self-sustaining Growth Loop</span>
+                  <span className="text-white/80 text-sm">{t.growthLoop}</span>
                 </div>
               </motion.div>
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* Phase Indicators */}
         <div className="flex justify-center gap-2 mt-8">
-          {["demo", "pipeline", "aha", "conversion", "community"].map((p) => (
+          {(["demo", "pipeline", "aha", "conversion", "community"] as const).map((p) => (
             <div
               key={p}
-              className={`h-1.5 rounded-full transition-all ${
-                phase === p ? "bg-[#9c55ff] w-8" : "bg-white/20 w-1.5"
-              }`}
+              className={`h-1.5 rounded-full transition-all ${phase === p ? "bg-[#9c55ff] w-8" : "bg-white/20 w-1.5"}`}
             />
           ))}
         </div>
       </div>
 
-      {/* Caption */}
       <motion.div
         className="text-center mt-4 text-white/60 text-sm"
         animate={{ opacity: [0.5, 1, 0.5] }}
         transition={{ duration: 2, repeat: Infinity }}
       >
-        🚀 Pipeline PLG validata con early customers
+        {t.caption}
       </motion.div>
     </div>
   );
 };
-

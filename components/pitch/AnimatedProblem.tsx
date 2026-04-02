@@ -3,18 +3,59 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { BarChart, FileText, Search, Settings, TrendingUp, Zap, AlertCircle, Loader } from "lucide-react";
+import type { PitchLocale } from "@/pitch.data";
 
 interface Tab {
   id: number;
   name: string;
-  icon: any;
+  icon: typeof BarChart;
 }
 
-export const AnimatedProblem = () => {
+const COPY: Record<
+  PitchLocale,
+  {
+    urlBar: string;
+    toolsOpen: string;
+    warningBody: string;
+    exploding: string;
+    cap0: string;
+    cap1: string;
+    cap2: string;
+    cap3: string;
+  }
+> = {
+  it: {
+    urlBar: "🌐 Gestione workflow SEO...",
+    toolsOpen: "tool aperti contemporaneamente",
+    warningBody: "Workflow frammentato. Nessuna guida strategica. Troppa complessità.",
+    exploding: "Troppi tool, troppa confusione...",
+    cap0: "Inizia il workflow SEO...",
+    cap1: "Aprendo i tool necessari...",
+    cap2: "Il caos aumenta...",
+    cap3: "Reset...",
+  },
+  en: {
+    urlBar: "🌐 Managing SEO workflow...",
+    toolsOpen: "tools open at once",
+    warningBody: "Fragmented workflow. No strategic guidance. Too much complexity.",
+    exploding: "Too many tools, too much confusion...",
+    cap0: "Starting the SEO workflow...",
+    cap1: "Opening the tools you need...",
+    cap2: "Chaos builds...",
+    cap3: "Reset...",
+  },
+};
+
+export interface AnimatedProblemProps {
+  locale?: PitchLocale;
+}
+
+export const AnimatedProblem = ({ locale = "it" }: AnimatedProblemProps) => {
+  const t = COPY[locale];
   const [tabs, setTabs] = useState<Tab[]>([]);
   const [isExploding, setIsExploding] = useState(false);
-  
-  const possibleTabs = [
+
+  const possibleTabs: Omit<Tab, "id">[] = [
     { name: "SEMrush", icon: BarChart },
     { name: "Ahrefs", icon: Search },
     { name: "Screaming Frog", icon: Settings },
@@ -29,16 +70,14 @@ export const AnimatedProblem = () => {
 
   useEffect(() => {
     let timeout: NodeJS.Timeout;
-    
-    // Fase 1: Aggiungi tab una alla volta
+
     if (tabs.length < 10 && !isExploding) {
       timeout = setTimeout(() => {
-        const nextTab = possibleTabs[tabs.length];
-        setTabs([...tabs, { ...nextTab, id: tabs.length }]);
+        const next = possibleTabs[tabs.length];
+        setTabs([...tabs, { ...next, id: tabs.length }]);
       }, 600);
     }
-    
-    // Fase 2: Explode e reset
+
     if (tabs.length === 10 && !isExploding) {
       timeout = setTimeout(() => {
         setIsExploding(true);
@@ -54,7 +93,6 @@ export const AnimatedProblem = () => {
 
   return (
     <div className="w-full max-w-4xl mx-auto">
-      {/* Browser Window Mockup */}
       <motion.div
         className="dashboard-card rounded-xl overflow-hidden border-2 border-white/10"
         animate={{
@@ -63,19 +101,15 @@ export const AnimatedProblem = () => {
         }}
         transition={{ duration: 0.3 }}
       >
-        {/* Browser Header */}
         <div className="bg-[#1a0f26] border-b border-white/10 p-3 flex items-center gap-2">
           <div className="flex gap-1.5">
             <div className="w-3 h-3 rounded-full bg-red-500/50" />
             <div className="w-3 h-3 rounded-full bg-yellow-500/50" />
             <div className="w-3 h-3 rounded-full bg-green-500/50" />
           </div>
-          <div className="flex-1 bg-[#2a193c] rounded px-3 py-1.5 text-white/40 text-xs">
-            🌐 Managing SEO workflow...
-          </div>
+          <div className="flex-1 bg-[#2a193c] rounded px-3 py-1.5 text-white/40 text-xs">{t.urlBar}</div>
         </div>
 
-        {/* Tabs Container */}
         <div className="bg-[#2a193c] p-2 min-h-[60px] relative overflow-hidden">
           <div className="flex flex-wrap gap-1">
             <AnimatePresence>
@@ -85,15 +119,15 @@ export const AnimatedProblem = () => {
                   <motion.div
                     key={tab.id}
                     initial={{ opacity: 0, scale: 0.8, y: -20 }}
-                    animate={{ 
-                      opacity: 1, 
-                      scale: 1, 
+                    animate={{
+                      opacity: 1,
+                      scale: 1,
                       y: 0,
                       rotate: isExploding ? Math.random() * 360 : 0,
                       x: isExploding ? (Math.random() - 0.5) * 200 : 0,
                     }}
-                    exit={{ 
-                      opacity: 0, 
+                    exit={{
+                      opacity: 0,
                       scale: 0.5,
                       y: -50,
                     }}
@@ -111,7 +145,6 @@ export const AnimatedProblem = () => {
             </AnimatePresence>
           </div>
 
-          {/* Chaos Overlay */}
           <AnimatePresence>
             {tabs.length >= 7 && !isExploding && (
               <motion.div
@@ -125,16 +158,8 @@ export const AnimatedProblem = () => {
                     key={i}
                     className="absolute w-2 h-2 bg-[#9c55ff]/30 rounded-full"
                     animate={{
-                      x: [
-                        Math.random() * 100,
-                        Math.random() * 300,
-                        Math.random() * 100,
-                      ],
-                      y: [
-                        Math.random() * 40,
-                        Math.random() * 60,
-                        Math.random() * 40,
-                      ],
+                      x: [Math.random() * 100, Math.random() * 300, Math.random() * 100],
+                      y: [Math.random() * 40, Math.random() * 60, Math.random() * 40],
                       scale: [1, 1.5, 1],
                       opacity: [0.3, 0.7, 0.3],
                     }}
@@ -150,7 +175,6 @@ export const AnimatedProblem = () => {
           </AnimatePresence>
         </div>
 
-        {/* Content Area with Warning */}
         <div className="bg-gradient-to-b from-[#2a193c] to-[#1a0f26] p-6">
           <AnimatePresence mode="wait">
             {tabs.length >= 5 && !isExploding && (
@@ -163,11 +187,9 @@ export const AnimatedProblem = () => {
                 <AlertCircle className="w-5 h-5 text-yellow-500 flex-shrink-0 mt-0.5" />
                 <div>
                   <div className="text-yellow-500 font-semibold text-sm mb-1">
-                    {tabs.length} tool aperti contemporaneamente
+                    {tabs.length} {t.toolsOpen}
                   </div>
-                  <div className="text-white/70 text-xs">
-                    Workflow frammentato. Nessuna guida strategica. Troppa complessità.
-                  </div>
+                  <div className="text-white/70 text-xs">{t.warningBody}</div>
                 </div>
               </motion.div>
             )}
@@ -185,27 +207,26 @@ export const AnimatedProblem = () => {
                 >
                   <Loader className="w-12 h-12 text-[#9c55ff]/50" />
                 </motion.div>
-                <div className="text-white/50 text-sm mt-4">
-                  Troppi tool, troppa confusione...
-                </div>
+                <div className="text-white/50 text-sm mt-4">{t.exploding}</div>
               </motion.div>
             )}
           </AnimatePresence>
         </div>
       </motion.div>
 
-      {/* Caption */}
       <motion.div
         className="text-center mt-4 text-white/60 text-sm"
         animate={{ opacity: [0.5, 1, 0.5] }}
         transition={{ duration: 2, repeat: Infinity }}
       >
-        {tabs.length === 0 ? "Inizia il workflow SEO..." : 
-         tabs.length < 5 ? "Aprendo i tool necessari..." :
-         tabs.length < 10 ? "Il caos aumenta..." :
-         "Reset..."}
+        {tabs.length === 0
+          ? t.cap0
+          : tabs.length < 5
+            ? t.cap1
+            : tabs.length < 10
+              ? t.cap2
+              : t.cap3}
       </motion.div>
     </div>
   );
 };
-

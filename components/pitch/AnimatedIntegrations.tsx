@@ -1,29 +1,76 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Zap, Package, Webhook, BarChart, Key, FileCode } from "lucide-react";
+import type { PitchLocale } from "@/pitch.data";
 
 interface Integration {
   id: number;
   name: string;
-  icon: any;
+  icon: typeof Zap;
   data: string;
   color: string;
 }
 
-const integrations: Integration[] = [
-  { id: 1, name: "WordPress", icon: FileCode, data: "Contenuto pubblicato", color: "from-blue-500 to-blue-600" },
-  { id: 2, name: "Shopify", icon: Package, data: "Descrizioni prodotto", color: "from-green-500 to-green-600" },
-  { id: 3, name: "Zapier", icon: Zap, data: "Automazione attivata", color: "from-orange-500 to-orange-600" },
-  { id: 4, name: "Webhook", icon: Webhook, data: "Dati inviati", color: "from-purple-500 to-purple-600" },
-  { id: 5, name: "GSC/Looker", icon: BarChart, data: "Report generato", color: "from-cyan-500 to-cyan-600" },
-  { id: 6, name: "API Keys", icon: Key, data: "Credenziali sicure", color: "from-pink-500 to-pink-600" },
-];
+function integrationsForLocale(locale: PitchLocale): Integration[] {
+  if (locale === "en") {
+    return [
+      { id: 1, name: "WordPress", icon: FileCode, data: "Content published", color: "from-blue-500 to-blue-600" },
+      { id: 2, name: "Shopify", icon: Package, data: "Product copy", color: "from-green-500 to-green-600" },
+      { id: 3, name: "Zapier", icon: Zap, data: "Automation on", color: "from-orange-500 to-orange-600" },
+      { id: 4, name: "Webhook", icon: Webhook, data: "Data sent", color: "from-purple-500 to-purple-600" },
+      { id: 5, name: "GSC/Looker", icon: BarChart, data: "Report generated", color: "from-cyan-500 to-cyan-600" },
+      { id: 6, name: "API Keys", icon: Key, data: "Secure credentials", color: "from-pink-500 to-pink-600" },
+    ];
+  }
+  return [
+    { id: 1, name: "WordPress", icon: FileCode, data: "Contenuto pubblicato", color: "from-blue-500 to-blue-600" },
+    { id: 2, name: "Shopify", icon: Package, data: "Descrizioni prodotto", color: "from-green-500 to-green-600" },
+    { id: 3, name: "Zapier", icon: Zap, data: "Automazione attivata", color: "from-orange-500 to-orange-600" },
+    { id: 4, name: "Webhook", icon: Webhook, data: "Dati inviati", color: "from-purple-500 to-purple-600" },
+    { id: 5, name: "GSC/Looker", icon: BarChart, data: "Report generato", color: "from-cyan-500 to-cyan-600" },
+    { id: 6, name: "API Keys", icon: Key, data: "Credenziali sicure", color: "from-pink-500 to-pink-600" },
+  ];
+}
 
-export const AnimatedIntegrations = () => {
+const COPY: Record<
+  PitchLocale,
+  {
+    initHub: string;
+    connecting: string;
+    allActive: string;
+    caption: string;
+  }
+> = {
+  it: {
+    initHub: "Inizializzazione hub...",
+    connecting: "Connessione a",
+    allActive: "✓ Tutte le integrazioni attive",
+    caption: "🔌 Connessioni sicure con i principali CMS e tool",
+  },
+  en: {
+    initHub: "Initializing hub...",
+    connecting: "Connecting to",
+    allActive: "✓ All integrations active",
+    caption: "🔌 Secure connections to leading CMS and tools",
+  },
+};
+
+export interface AnimatedIntegrationsProps {
+  locale?: PitchLocale;
+}
+
+export const AnimatedIntegrations = ({ locale = "it" }: AnimatedIntegrationsProps) => {
+  const t = COPY[locale];
+  const integrations = useMemo(() => integrationsForLocale(locale), [locale]);
   const [activeIntegration, setActiveIntegration] = useState(-1);
   const [showData, setShowData] = useState(false);
+
+  useEffect(() => {
+    setActiveIntegration(-1);
+    setShowData(false);
+  }, [locale]);
 
   useEffect(() => {
     let timeout: NodeJS.Timeout;
@@ -35,17 +82,16 @@ export const AnimatedIntegrations = () => {
         setTimeout(() => setShowData(false), 800);
       }, 1500);
     } else {
-      // Reset after showing all
       timeout = setTimeout(() => {
         setActiveIntegration(-1);
       }, 2000);
     }
 
     return () => clearTimeout(timeout);
-  }, [activeIntegration]);
+  }, [activeIntegration, integrations.length]);
 
   const getPosition = (index: number) => {
-    const angle = (index * 60 - 90) * (Math.PI / 180); // 60° intervals for 6 items
+    const angle = (index * 60 - 90) * (Math.PI / 180);
     const radius = 180;
     const x = Math.cos(angle) * radius;
     const y = Math.sin(angle) * radius;
@@ -55,16 +101,13 @@ export const AnimatedIntegrations = () => {
   return (
     <div className="w-full max-w-5xl mx-auto">
       <div className="dashboard-card rounded-2xl p-8 md:p-12 border-2 border-[#9c55ff]/20 relative overflow-hidden min-h-[500px] flex items-center justify-center">
-        {/* Background Glow */}
         <motion.div
           className="absolute inset-0 bg-gradient-radial from-[#9c55ff]/10 via-transparent to-transparent"
           animate={{ opacity: [0.3, 0.6, 0.3] }}
           transition={{ duration: 3, repeat: Infinity }}
         />
 
-        {/* Central Hub */}
         <div className="relative w-full h-full flex items-center justify-center">
-          {/* Integration Nodes */}
           {integrations.map((integration, idx) => {
             const position = getPosition(idx);
             const isActive = activeIntegration >= idx;
@@ -73,7 +116,6 @@ export const AnimatedIntegrations = () => {
 
             return (
               <div key={integration.id}>
-                {/* Connection Line */}
                 <AnimatePresence>
                   {isActive && (
                     <motion.div
@@ -89,8 +131,7 @@ export const AnimatedIntegrations = () => {
                       transition={{ duration: 0.5 }}
                     >
                       <div className={`w-full h-full bg-gradient-to-r ${integration.color}`} />
-                      
-                      {/* Data Pulse */}
+
                       {isCurrent && showData && (
                         <motion.div
                           className="absolute top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full"
@@ -102,7 +143,6 @@ export const AnimatedIntegrations = () => {
                   )}
                 </AnimatePresence>
 
-                {/* Integration Card */}
                 <motion.div
                   className="absolute"
                   style={{
@@ -112,7 +152,7 @@ export const AnimatedIntegrations = () => {
                     y: position.y - 50,
                   }}
                   initial={{ opacity: 0, scale: 0 }}
-                  animate={{ 
+                  animate={{
                     opacity: isActive ? 1 : 0.3,
                     scale: isActive ? 1 : 0.8,
                   }}
@@ -129,17 +169,14 @@ export const AnimatedIntegrations = () => {
                     }}
                     transition={{ duration: 1, repeat: isCurrent ? Infinity : 0 }}
                   >
-                    {/* Icon */}
-                    <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${integration.color} flex items-center justify-center mx-auto mb-2`}>
+                    <div
+                      className={`w-12 h-12 rounded-lg bg-gradient-to-br ${integration.color} flex items-center justify-center mx-auto mb-2`}
+                    >
                       <Icon className="w-6 h-6 text-white" />
                     </div>
-                    
-                    {/* Name */}
-                    <div className="text-white font-semibold text-xs text-center">
-                      {integration.name}
-                    </div>
 
-                    {/* Data Label */}
+                    <div className="text-white font-semibold text-xs text-center">{integration.name}</div>
+
                     <AnimatePresence>
                       {isCurrent && showData && (
                         <motion.div
@@ -158,7 +195,6 @@ export const AnimatedIntegrations = () => {
             );
           })}
 
-          {/* Central Hub Logo */}
           <motion.div
             className="relative z-10 dashboard-card rounded-2xl p-6 border-2 border-[#9c55ff] bg-[#1a0f26]"
             animate={{
@@ -168,38 +204,36 @@ export const AnimatedIntegrations = () => {
           >
             <div className="w-24 h-24 rounded-full bg-gradient-to-br from-[#9c55ff] to-[#c685ff] flex items-center justify-center">
               <div className="text-white font-bold text-center text-xs leading-tight">
-                agenzia<br/>marketing<br/>.ai
+                agenzia
+                <br />
+                marketing
+                <br />
+                .ai
               </div>
             </div>
-            <div className="text-white/80 text-xs text-center mt-3 font-semibold">
-              Integration Hub
-            </div>
+            <div className="text-white/80 text-xs text-center mt-3 font-semibold">Integration Hub</div>
           </motion.div>
         </div>
 
-        {/* Progress Text */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/60 text-sm text-center">
-          {activeIntegration < 0 && "Inizializzazione hub..."}
+          {activeIntegration < 0 && t.initHub}
           {activeIntegration >= 0 && activeIntegration < integrations.length && (
             <span>
-              Connessione a <span className="text-[#9c55ff] font-semibold">
-                {integrations[activeIntegration].name}
-              </span>
+              {t.connecting}{" "}
+              <span className="text-[#9c55ff] font-semibold">{integrations[activeIntegration].name}</span>
             </span>
           )}
-          {activeIntegration >= integrations.length && "✓ Tutte le integrazioni attive"}
+          {activeIntegration >= integrations.length && t.allActive}
         </div>
       </div>
 
-      {/* Caption */}
       <motion.div
         className="text-center mt-4 text-white/60 text-sm"
         animate={{ opacity: [0.5, 1, 0.5] }}
         transition={{ duration: 2, repeat: Infinity }}
       >
-        🔌 Connessioni sicure con i principali CMS e tool
+        {t.caption}
       </motion.div>
     </div>
   );
 };
-

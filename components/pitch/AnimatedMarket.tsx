@@ -3,8 +3,58 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { TrendingUp, Globe, Building2 } from "lucide-react";
+import type { PitchLocale } from "@/pitch.data";
 
-export const AnimatedMarket = () => {
+const COPY: Record<
+  PitchLocale,
+  {
+    header: string;
+    sub: string;
+    tamTitle: string;
+    tamSub: string;
+    growth: string;
+    italyTitle: string;
+    italySub: string;
+    agenciesTotal: string;
+    seoFocus: string;
+    dotLegend: string;
+    caption: string;
+  }
+> = {
+  it: {
+    header: "Opportunità di Mercato",
+    sub: "SEO Software Market - Crescita e Target",
+    tamTitle: "TAM Globale",
+    tamSub: "SEO Software Market",
+    growth: "+107% crescita",
+    italyTitle: "Mercato Italia",
+    italySub: "Agenzie di Comunicazione",
+    agenciesTotal: "Agenzie totali",
+    seoFocus: "con focus SEO",
+    dotLegend: "Ogni punto = 1% delle agenzie",
+    caption: "💼 Mercato globale in forte crescita, opportunità Italia",
+  },
+  en: {
+    header: "Market opportunity",
+    sub: "SEO software market — growth and target",
+    tamTitle: "Global TAM",
+    tamSub: "SEO software market",
+    growth: "+107% growth",
+    italyTitle: "Italy market",
+    italySub: "Communication agencies",
+    agenciesTotal: "Total agencies",
+    seoFocus: "with SEO focus",
+    dotLegend: "Each dot = 1% of agencies",
+    caption: "💼 Fast-growing global market, opportunity in Italy",
+  },
+};
+
+export interface AnimatedMarketProps {
+  locale?: PitchLocale;
+}
+
+export const AnimatedMarket = ({ locale = "it" }: AnimatedMarketProps) => {
+  const t = COPY[locale];
   const [phase, setPhase] = useState<"tam" | "italy">("tam");
   const [tamProgress, setTamProgress] = useState(0);
 
@@ -12,7 +62,6 @@ export const AnimatedMarket = () => {
     let timeout: NodeJS.Timeout;
 
     if (phase === "tam") {
-      // Animate TAM growth
       if (tamProgress < 100) {
         timeout = setTimeout(() => {
           setTamProgress(Math.min(tamProgress + 2, 100));
@@ -35,18 +84,12 @@ export const AnimatedMarket = () => {
   return (
     <div className="w-full max-w-5xl mx-auto">
       <div className="dashboard-card rounded-2xl p-6 md:p-8 border-2 border-[#9c55ff]/20">
-        {/* Header */}
         <div className="text-center mb-8">
-          <h3 className="text-white text-xl md:text-2xl font-bold mb-2">
-            Opportunità di Mercato
-          </h3>
-          <p className="text-white/60 text-sm">
-            SEO Software Market - Crescita e Target
-          </p>
+          <h3 className="text-white text-xl md:text-2xl font-bold mb-2">{t.header}</h3>
+          <p className="text-white/60 text-sm">{t.sub}</p>
         </div>
 
         <AnimatePresence mode="wait">
-          {/* TAM Global Phase */}
           {phase === "tam" && (
             <motion.div
               key="tam"
@@ -55,20 +98,17 @@ export const AnimatedMarket = () => {
               exit={{ opacity: 0, y: -20 }}
               className="space-y-6"
             >
-              {/* Title */}
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 rounded-full bg-[#9c55ff]/20 flex items-center justify-center">
                   <Globe className="w-6 h-6 text-[#9c55ff]" />
                 </div>
                 <div>
-                  <div className="text-white font-bold text-lg">TAM Globale</div>
-                  <div className="text-white/60 text-sm">SEO Software Market</div>
+                  <div className="text-white font-bold text-lg">{t.tamTitle}</div>
+                  <div className="text-white/60 text-sm">{t.tamSub}</div>
                 </div>
               </div>
 
-              {/* Growth Chart */}
               <div className="relative h-64 flex items-end justify-center gap-12">
-                {/* 2024 Bar */}
                 <div className="flex flex-col items-center">
                   <motion.div
                     className="w-24 bg-gradient-to-t from-blue-500/80 to-blue-400/80 rounded-t-lg relative"
@@ -88,7 +128,6 @@ export const AnimatedMarket = () => {
                   <div className="text-white/60 text-sm mt-3 font-semibold">2024</div>
                 </div>
 
-                {/* Arrow */}
                 <motion.div
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -98,7 +137,6 @@ export const AnimatedMarket = () => {
                   <TrendingUp className="w-8 h-8 text-[#9c55ff]" />
                 </motion.div>
 
-                {/* 2030 Bar - Animated Growth */}
                 <div className="flex flex-col items-center">
                   <motion.div
                     className="w-24 bg-gradient-to-t from-[#9c55ff] to-[#c685ff] rounded-t-lg relative"
@@ -109,16 +147,13 @@ export const AnimatedMarket = () => {
                       className="absolute -top-12 left-1/2 -translate-x-1/2 text-center whitespace-nowrap"
                       animate={{ opacity: 1, y: 0 }}
                     >
-                      <div className="text-2xl font-bold text-[#9c55ff]">
-                        ${currentTam.toFixed(1)}B
-                      </div>
+                      <div className="text-2xl font-bold text-[#9c55ff]">${currentTam.toFixed(1)}B</div>
                     </motion.div>
                   </motion.div>
                   <div className="text-white/60 text-sm mt-3 font-semibold">2030</div>
                 </div>
               </div>
 
-              {/* Growth Percentage */}
               <motion.div
                 className="text-center"
                 initial={{ opacity: 0 }}
@@ -127,13 +162,12 @@ export const AnimatedMarket = () => {
               >
                 <div className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/30 rounded-full px-4 py-2">
                   <TrendingUp className="w-4 h-4 text-green-400" />
-                  <span className="text-green-400 font-bold">+107% crescita</span>
+                  <span className="text-green-400 font-bold">{t.growth}</span>
                 </div>
               </motion.div>
             </motion.div>
           )}
 
-          {/* Italy Market Phase */}
           {phase === "italy" && (
             <motion.div
               key="italy"
@@ -142,20 +176,17 @@ export const AnimatedMarket = () => {
               exit={{ opacity: 0, y: -20 }}
               className="space-y-6"
             >
-              {/* Title */}
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center">
                   <Building2 className="w-6 h-6 text-blue-400" />
                 </div>
                 <div>
-                  <div className="text-white font-bold text-lg">Mercato Italia</div>
-                  <div className="text-white/60 text-sm">Agenzie di Comunicazione</div>
+                  <div className="text-white font-bold text-lg">{t.italyTitle}</div>
+                  <div className="text-white/60 text-sm">{t.italySub}</div>
                 </div>
               </div>
 
-              {/* Stats Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Total Agencies */}
                 <motion.div
                   className="dashboard-card rounded-xl p-6 border border-white/10"
                   initial={{ opacity: 0, x: -20 }}
@@ -171,11 +202,10 @@ export const AnimatedMarket = () => {
                     >
                       ~24k
                     </motion.div>
-                    <div className="text-white/70 text-sm">Agenzie totali</div>
+                    <div className="text-white/70 text-sm">{t.agenciesTotal}</div>
                   </div>
                 </motion.div>
 
-                {/* SEO Focused */}
                 <motion.div
                   className="dashboard-card rounded-xl p-6 border border-[#9c55ff]/30 bg-[#9c55ff]/5"
                   initial={{ opacity: 0, x: 20 }}
@@ -191,12 +221,11 @@ export const AnimatedMarket = () => {
                     >
                       30-60%
                     </motion.div>
-                    <div className="text-white/70 text-sm">con focus SEO</div>
+                    <div className="text-white/70 text-sm">{t.seoFocus}</div>
                   </div>
                 </motion.div>
               </div>
 
-              {/* Visual Representation */}
               <motion.div
                 className="flex justify-center gap-1 flex-wrap max-w-md mx-auto"
                 initial={{ opacity: 0 }}
@@ -206,44 +235,35 @@ export const AnimatedMarket = () => {
                 {Array.from({ length: 100 }).map((_, i) => (
                   <motion.div
                     key={i}
-                    className={`w-2 h-2 rounded-sm ${
-                      i < 45 ? "bg-[#9c55ff]" : "bg-white/10"
-                    }`}
+                    className={`w-2 h-2 rounded-sm ${i < 45 ? "bg-[#9c55ff]" : "bg-white/10"}`}
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ delay: 0.8 + i * 0.01 }}
                   />
                 ))}
               </motion.div>
-              <div className="text-center text-white/60 text-xs">
-                Ogni punto = 1% delle agenzie
-              </div>
+              <div className="text-center text-white/60 text-xs">{t.dotLegend}</div>
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* Phase Indicator */}
         <div className="flex justify-center gap-2 mt-8">
           {["tam", "italy"].map((p) => (
             <div
               key={p}
-              className={`w-2 h-2 rounded-full transition-all ${
-                phase === p ? "bg-[#9c55ff] w-8" : "bg-white/20"
-              }`}
+              className={`w-2 h-2 rounded-full transition-all ${phase === p ? "bg-[#9c55ff] w-8" : "bg-white/20"}`}
             />
           ))}
         </div>
       </div>
 
-      {/* Caption */}
       <motion.div
         className="text-center mt-4 text-white/60 text-sm"
         animate={{ opacity: [0.5, 1, 0.5] }}
         transition={{ duration: 2, repeat: Infinity }}
       >
-        💼 Mercato globale in forte crescita, opportunità Italia
+        {t.caption}
       </motion.div>
     </div>
   );
 };
-
